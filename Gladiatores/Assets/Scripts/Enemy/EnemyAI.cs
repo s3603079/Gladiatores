@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    TestPlayer activePlayer_;   //  !<  生きているプレイヤー
+    Player activePlayer_;   //  !<  生きているプレイヤー
     float targetDir_ = 0;       //  !<  ターゲットの方向
     Transform targetPos_;       //  !<  ターゲットの位置
 
