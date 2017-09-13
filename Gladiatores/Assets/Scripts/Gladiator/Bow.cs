@@ -7,12 +7,21 @@ public class Bow : Weapon {
     [SerializeField]
     private GameObject arrowPrefab;
     [SerializeField]
-    private float shotPower = 10F;
+    private float shotPower = 10f;
 
-    private GameObject arrow;
-    private float coolTime;
-    private bool isDraw;
-    private bool isShot;
+    GameObject arrow;
+    float coolTime;
+    bool isDraw;
+    bool isShot;
+    
+    void Start()
+    {
+        attackedReach_ = 1.0f;
+        weakToType_ = WeaponType.Shield;
+        strengthToType_ = WeaponType.Sword;
+        thisType_ = WeaponType.Bow;
+        base.Start();
+    }
 
     public override void Attack(float InputValue) {
         if(InputValue >= 0.1F)

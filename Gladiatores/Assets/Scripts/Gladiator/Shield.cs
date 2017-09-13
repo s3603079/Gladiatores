@@ -7,20 +7,16 @@ public class Shield : Weapon {
     [SerializeField]
     private float spring = 1F;
 
-    private Vector3 offset;
-
     protected override void Start() {
         attackedReach_ = 1.0f;
         weakToType_ = WeaponType.Punch;
         strengthToType_ = WeaponType.Bow;
-        thisType_ = WeaponType.Sword;
+        thisType_ = WeaponType.Shield;
         base.Start();
-
-        offset = transform.parent.localPosition;
     }
 
     public override void Attack(float InputValue) {
         var foward = transform.parent.parent.parent.parent.up;
-        transform.parent.localPosition = offset + (Vector3.MoveTowards(Vector3.zero, foward, InputValue) * spring);
+        transform.parent.localPosition = (Vector3.MoveTowards(Vector3.zero, foward, InputValue) * spring);
     }
 }
