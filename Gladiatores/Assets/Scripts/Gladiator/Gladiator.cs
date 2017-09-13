@@ -9,13 +9,13 @@ public class Gladiator : MonoBehaviour {
     private float walkSpeed = 1F;
     [SerializeField]
     private float jumpPower = 1F;
-    [SerializeField]
-    private WeaponType haveWeapon;
+
+    public WeaponType haveWeapon;
 
     private Rigidbody2D rb2d;
     private Vector3 velocity;
     private bool isGrounded;
-    private bool attackedReady;
+    private bool isPickuped;
     private Transform shoulder;
     private Transform arm;
     private Transform[] weapons;
@@ -115,10 +115,36 @@ public class Gladiator : MonoBehaviour {
         shoulder.localEulerAngles = (transform.forward * InputAxis.y * 90F) + transform.forward * 90F;
     }
 
+    public void PickupWeapon(float InputValue) {
+        if (InputValue >= 1F)
+        {
+            if(!isPickuped && haveWeapon != WeaponType.Punch)
+            {
+                haveWeapon = WeaponType.Punch;
+            }
+            isPickuped = true;
+        }
+        else
+        {
+            isPickuped = false;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.tag == "Ground")
         {
             isGrounded = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.transform.tag == "Weapon")
+        {
+            if (isPickuped && haveWeapon == WeaponType.Punch)
+            {
+                collision.gameObject.SetActive(false);
+                haveWeapon = collision.GetComponent<Weapon>().ThisWeaponType;
+            }
         }
     }
 

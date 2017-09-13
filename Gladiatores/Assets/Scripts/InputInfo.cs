@@ -15,5 +15,6 @@ public class InputInfo : MonoBehaviour {
         player.Jump(GamePad.GetButtonDown(GamePad.Button.A, index));
         player.RotaShoulder(GamePad.GetAxis(GamePad.Axis.RightStick, index));
         player.Attack(GamePad.GetTrigger(GamePad.Trigger.RightTrigger, index));
+        player.PickupWeapon(GamePad.GetTrigger(GamePad.Trigger.LeftTrigger, index));
     }
 }
