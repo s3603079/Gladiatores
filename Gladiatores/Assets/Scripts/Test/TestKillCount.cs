@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 public class TestKillCount : MonoBehaviour
 {
-    int now_ = 1;
-
-    [SerializeField]
     int killCount_ = 0;
     [SerializeField]
     int maxKillCount_ = 100;
