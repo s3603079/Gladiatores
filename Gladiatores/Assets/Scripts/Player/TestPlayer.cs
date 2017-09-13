@@ -30,12 +30,12 @@ public class TestPlayer : Character
 
         if (equipmentWeapon_.ThisWeaponType != WeaponType.Punch && !argGameObject)
         {
-            //  TODO    :   武器のRelease
+            //  武器のRelease
             ChangeWeapon((int)WeaponType.Punch);
         }
         else if (argGameObject)
         {
-            //  TODO    :   武器のPick
+            //  武器のPick
             base.ChoiceWeapon(argWeaponType, argGameObject);
         }
     }

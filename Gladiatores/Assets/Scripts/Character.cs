@@ -85,10 +85,8 @@ public class Character : MonoBehaviour
 
         weaponGroupType_[(int)WeaponType.Punch] = arm.GetChild(0).gameObject.GetComponent<Weapon>();
         weaponGroupType_[(int)WeaponType.Sword] = arm.GetChild(1).gameObject.GetComponent<Weapon>();
-
-        //  TODO    :   未実装
-        //weaponGroup_[(int)WeaponType.Shield] = arm.GetChild(2).gameObject;
-        //weaponGroup_[(int)WeaponType.Bow] = arm.GetChild(3).gameObject;
+        weaponGroupType_[(int)WeaponType.Shield] = arm.GetChild(2).gameObject.GetComponent<Weapon>();
+        weaponGroupType_[(int)WeaponType.Bow] = arm.GetChild(3).gameObject.GetComponent<Weapon>();
 
         equipmentWeapon_ = weaponGroupType_[(int)WeaponType.Punch].GetComponent<Weapon>();
 

@@ -31,9 +31,8 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
         GameObject[] weaponGruop = new GameObject[(int)WeaponType.Max];
 
         weaponGruop[(int)WeaponType.Sword] = Resources.Load(PrefabsPath + "Sword") as GameObject;
-        //  TDOO    :   未実装
-        //weaponGruop[(int)WeaponType.Shield] = Resources.Load(PrefabsPath + "Shield") as GameObject;
-        //weaponGruop[(int)WeaponType.Bow] = Resources.Load(PrefabsPath + "Bow") as GameObject;
+        weaponGruop[(int)WeaponType.Shield] = Resources.Load(PrefabsPath + "Shield") as GameObject;
+        weaponGruop[(int)WeaponType.Bow] = Resources.Load(PrefabsPath + "Bow") as GameObject;
 
         for (int lType = 0; lType < (int)WeaponType.Max; lType++)
         {
@@ -48,6 +47,14 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
         if (Input.GetKeyDown(KeyCode.W))
         {
             DebugPopupWeapon(WeaponType.Sword);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            DebugPopupWeapon(WeaponType.Shield);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            DebugPopupWeapon(WeaponType.Bow);
         }
     }
 
