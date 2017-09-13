@@ -46,19 +46,19 @@ public class Weapon : MonoBehaviour
 
     protected virtual void Update ()
     {
-        //if(!transform.parent)
-        //{
-        //    if (transform.position.y >= -4.0f)
-        //    {// 地面に落ちるまで落下
-        //        gravity_ -= accel_;
-        //        transform.position = new Vector2(transform.position.x, transform.position.y + gravity_);
-        //    }
-        //    else
-        //    {// 地面に落ちたらマネージャーに登録
-        //        WeaponManager.Instance.ActiveWeapons[0] = this;
-        //    }
-        //}
-	}
+        if (!transform.parent)
+        {
+            if (transform.position.y >= -4.0f)
+            {// 地面に落ちるまで落下
+                gravity_ -= accel_;
+                transform.position = new Vector2(transform.position.x, transform.position.y + gravity_);
+            }
+            else
+            {// 地面に落ちたらマネージャーに登録
+                WeaponManager.Instance.ActiveWeapons[0] = this;
+            }
+        }
+    }
     public virtual void Attack(float InputValue)
     {
     }
