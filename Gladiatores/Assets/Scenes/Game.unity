@@ -4476,7 +4476,8 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 61865319515209144, guid: d7d5a28cb19af7646b683e006f33bd80, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d7d5a28cb19af7646b683e006f33bd80, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1249307091
@@ -5021,6 +5022,36 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+--- !u!1 &1487194521 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1205832002321832, guid: b1f0f703153c2154ba1e5e046ebae622,
+    type: 2}
+  m_PrefabInternal: {fileID: 497650026}
+--- !u!61 &1487194525
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1487194521}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.8959999}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.15}
+    oldSize: {x: 0.25, y: 2.56}
+    newSize: {x: 94.49999, y: 2.76}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.25, y: 2.56}
+  m_EdgeRadius: 0
 --- !u!1 &1492020123
 GameObject:
   m_ObjectHideFlags: 0
@@ -5093,6 +5124,36 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1492020123}
+--- !u!1 &1492853168 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1127457888073394, guid: b1f0f703153c2154ba1e5e046ebae622,
+    type: 2}
+  m_PrefabInternal: {fileID: 497650026}
+--- !u!61 &1492853172
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1492853168}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2.84}
+    newSize: {x: 94.49999, y: 2.76}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.84}
+  m_EdgeRadius: 0
 --- !u!4 &1495777468 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4616586417178992, guid: 4e426fabd7e452e48b02a714f9c6069a,

@@ -141,12 +141,11 @@ public class Character : MonoBehaviour
     protected virtual void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
     {
         ChangeWeapon((int)argWeaponType);
-        WeaponManager.Instance.RemoveActiveWeapon(argGameObject, 0);
+        WeaponManager.Instance.RemoveActiveWeapon(argGameObject);
     }
 
     public virtual void Attack()
     {
-        //  TODO    :   武器の当たり判定のON、OFF
         //  TODO    :   animation
 
         rigid2d_.velocity = new Vector2(0, 0);
@@ -193,7 +192,10 @@ public class Character : MonoBehaviour
 
     protected void TriggerStay2D(Weapon argWeapon, Collider2D argCollision, int argDamage)
     {
-        if (argWeapon && !argCollision.gameObject.transform.parent)
+        if (!argWeapon)
+            return;
+
+        if (!argCollision.gameObject.transform.parent)
         {// 落ちている武器に触れていれば
             ChoiceWeapon(argWeapon.ThisWeaponType, argCollision.gameObject);
         }

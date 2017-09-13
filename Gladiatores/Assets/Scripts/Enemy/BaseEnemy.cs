@@ -5,6 +5,8 @@ public class BaseEnemy : Character
     int level_ = 0;             //  !<  現在のレベル
     EnemyAI ai_;                //  !<  AIの挙動
 
+    float animationTime_ = 0.0f;
+
 #region UnityDefault
     void Start()
     {
@@ -25,6 +27,12 @@ public class BaseEnemy : Character
 
         ai_.Execute(this);
         base.Update();
+    }
+
+    public void Animation()
+    {
+        animationTime_ += Time.deltaTime * 6.2f;
+        equipmentWeapon_.Attack(Mathf.Sin(animationTime_));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -55,10 +63,15 @@ public class BaseEnemy : Character
         //if(playerWeaponType == equipmentWeapon_.WeakWeaponType)
 
         //  プレイヤーの弱点以外か、自分と同じ武器タイプなら拾いに行かない
-        if (WeaponManager.Instance.ActiveWeapons[0].StrengthWeaponType != playerWeaponType ||
-            WeaponManager.Instance.ActiveWeapons[0].ThisWeaponType == equipmentWeapon_.ThisWeaponType)
-            res = false;
-
+        Weapon weapon = WeaponManager.Instance.SearchNearestWeapon(transform.position);
+        if (weapon)
+        {
+            if (weapon.StrengthWeaponType != playerWeaponType || 
+                weapon.ThisWeaponType == equipmentWeapon_.ThisWeaponType)
+            {
+                res = false;
+            }
+        }
         return res;
     }
 #endregion Move
@@ -72,14 +85,15 @@ public class BaseEnemy : Character
         //  TODO    :   まだ未実装
         //if(playerWeaponType == equipmentWeapon_.WeakWeaponType)
 
-        Debug.Assert(WeaponManager.Instance.ActiveWeapons[0]);
-
-        if (WeaponManager.Instance.ActiveWeapons[0].StrengthWeaponType == playerWeaponType &&
-            WeaponManager.Instance.ActiveWeapons[0].ThisWeaponType != equipmentWeapon_.ThisWeaponType)
+        Weapon weapon = WeaponManager.Instance.SearchNearestWeapon(transform.position);
+        if (weapon)
         {
-            base.ChoiceWeapon(argWeaponType, argGameObject);
+            if (weapon.StrengthWeaponType == playerWeaponType &&
+                weapon.ThisWeaponType != equipmentWeapon_.ThisWeaponType)
+            {
+                base.ChoiceWeapon(argWeaponType, argGameObject);
+            }
         }
-
     }
 #endregion Attack
 }

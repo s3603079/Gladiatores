@@ -19,8 +19,10 @@ public class EnemyAI : MonoBehaviour
     {
         //  攻撃中は行動しない
         if (argBaseEnemy.IsAttacking)
+        {
+            argBaseEnemy.Animation();
             return;
-
+        }
         Move(argBaseEnemy);
         Attack(argBaseEnemy);
     }
@@ -30,8 +32,6 @@ public class EnemyAI : MonoBehaviour
         var targetDistance = Vector2.Distance(transform.position, targetPos_.position);
         if(targetDistance <= argBaseEnemy.EquipmentWeapon.AttackedReach)
         {
-            //  TODO    :   animation
-
             argBaseEnemy.Attack();
         }
     }
@@ -43,7 +43,7 @@ public class EnemyAI : MonoBehaviour
         if (argBaseEnemy.IsAttacking)
             return;
 
-        if (WeaponManager.Instance.ActiveWeapons[0] && argBaseEnemy.IsMoveToPick())
+        if (WeaponManager.Instance.SearchNearestWeapon(transform.position) && argBaseEnemy.IsMoveToPick())
         {
             MoveToPick(argBaseEnemy);
         }
@@ -79,7 +79,12 @@ public class EnemyAI : MonoBehaviour
     void MoveToPick(BaseEnemy argBaseEnemy)
     {
         //  武器の座標取得
-        Transform weaponPos = WeaponManager.Instance.ActiveWeapons[0].transform;
+        Weapon weapon = WeaponManager.Instance.SearchNearestWeapon(transform.position);
+
+        if (!weapon)
+            return;
+
+        Transform weaponPos = weapon.transform;
 
         //  移動方向の取得
         targetDir_ = Mathf.Atan2(

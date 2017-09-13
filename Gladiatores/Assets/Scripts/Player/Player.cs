@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using GamepadInput;
 
 public class Player : Character
@@ -20,7 +18,6 @@ public class Player : Character
         if (!isLiving_)
         {// TODO    :   死亡処理
         }
-        //DebugActions();
         base.Update();
     }
 
@@ -41,59 +38,12 @@ public class Player : Character
         }
     }
 
-
-    void DebugActions()
+    public void Actions(GamePad.Index argIndex)
     {
-        if (isAttacking_)
-            return;
-
-        DebugMove();
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Attack();
-        }
-
-        if (!canPick_)
-            ChoiceWeapon();
-        canPick_ = false;
-    }
-
-    void DebugNoticeLineRotate()
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            equipmentWeapon_.transform.localEulerAngles = new Vector3(equipmentWeapon_.transform.localEulerAngles.x, equipmentWeapon_.transform.localEulerAngles.y, equipmentWeapon_.transform.localEulerAngles.z - 1);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            equipmentWeapon_.transform.localEulerAngles = new Vector3(equipmentWeapon_.transform.localEulerAngles.x, equipmentWeapon_.transform.localEulerAngles.y, equipmentWeapon_.transform.localEulerAngles.z + 1);
-        }
-    }
-
-    void DebugMove()
-    {
-        if (isAttacking_)
-            return;
-
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            rigid2d_.velocity = new Vector2(spd_.x, rigid2d_.velocity.y);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            rigid2d_.velocity = new Vector2(-spd_.x, rigid2d_.velocity.y);
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping_)
-        {
-            base.Jump();
-
-#if false
-            isJumping_ = true;
-            rigid2d_.velocity = new Vector2(rigid2d_.velocity.x, spd_.y);
-#endif
-        }
+        Walk(GamePad.GetAxis(GamePad.Axis.LeftStick, argIndex).x);
+        Jump(GamePad.GetButtonDown(GamePad.Button.A, argIndex));
+        RotaShoulder(GamePad.GetAxis(GamePad.Axis.RightStick, argIndex));
+        Attack(GamePad.GetTrigger(GamePad.Trigger.RightTrigger, argIndex));
     }
 
     void Walk(float argInputValue)
@@ -115,14 +65,6 @@ public class Player : Character
     void Attack(float argInputValue)
     {
         equipmentWeapon_.Attack(argInputValue);
-    }
-
-    public void Actions(GamePad.Index argIndex)
-    {
-        Walk(GamePad.GetAxis(GamePad.Axis.LeftStick, argIndex).x);
-        Jump(GamePad.GetButtonDown(GamePad.Button.A, argIndex));
-        RotaShoulder(GamePad.GetAxis(GamePad.Axis.RightStick, argIndex));
-        Attack(GamePad.GetTrigger(GamePad.Trigger.RightTrigger, argIndex));
     }
 
     void OnTriggerStay2D(Collider2D collision)
