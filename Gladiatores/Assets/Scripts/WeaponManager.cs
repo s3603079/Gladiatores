@@ -62,7 +62,7 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
     {
         GameObject weapon = weaponTypeGruop_[(int)argWeaponType].gameObject;
 
-        float range = (Camera.main.orthographicSize - 1) * 2;
+        float range = (Camera.main.orthographicSize - 1.5f) * 2.0f;
         Vector3 pos = new Vector3(Random.Range(-range, range), range, 0);
         Instantiate(weapon, pos, Quaternion.identity);
     }
