@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GamepadInput;
 
 public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
 {
-    List<TestPlayer> playerList_ = new List<TestPlayer>();
+    List<Player> playerList_ = new List<Player>();
 
     BaseEnemy enemy_;
     Vector2 entryPos = new Vector2(10, 0);
@@ -16,7 +17,7 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         get { return enemy_; }
         set { enemy_ = value; }
     }
-    public List<TestPlayer> PlayerList
+    public List<Player> PlayerList
     {
         get { return playerList_; }
     }
@@ -37,14 +38,19 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
 
         foreach (var player in players)
         {
-            playerList_.Add(player.GetComponent<TestPlayer>());
+            playerList_.Add(player.GetComponent<Player>());
         }
         enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
     }
 	
 	void Update ()
     {
-        if(!enemy_.gameObject.activeSelf)
+        foreach (var player in playerList_)
+        {
+            player.Actions(GamePad.Index.One);
+        }
+
+        if (!enemy_.gameObject.activeSelf)
         {
             if(currentEntryTime_ <= 0.0f)
             {// 敵が死んだ瞬間のみスコア計算

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamepadInput;
 
-public class TestPlayer : Character
+public class Player : Character
 {
     bool canPick_ = false;                    //  !<  アイテムを拾えるかどうかのフラグ
 
-    void Start ()
+    void Start()
     {
         power_ = 10;
         base.Start();
@@ -19,7 +20,7 @@ public class TestPlayer : Character
         if (!isLiving_)
         {// TODO    :   死亡処理
         }
-        DebugActions();
+        //DebugActions();
         base.Update();
     }
 
@@ -28,7 +29,6 @@ public class TestPlayer : Character
         if (!Input.GetKeyDown(KeyCode.E))
             return;
 
-        Debug.Assert(equipmentWeapon_);
         if (equipmentWeapon_.ThisWeaponType != WeaponType.Punch && !argGameObject)
         {
             //  武器のRelease
@@ -96,10 +96,39 @@ public class TestPlayer : Character
         }
     }
 
+    void Walk(float argInputValue)
+    {
+        if (isAttacking_)
+            return;
+
+        rigid2d_.velocity = new Vector2(spd_.x * argInputValue, rigid2d_.velocity.y);
+    }
+
+    void Jump(bool argInputTrigger)
+    {
+        if (argInputTrigger && !isJumping_)
+        {
+            base.Jump();
+        }
+    }
+
+    void Attack(float argInputValue)
+    {
+        equipmentWeapon_.Attack(argInputValue);
+    }
+
+    public void Actions(GamePad.Index argIndex)
+    {
+        Walk(GamePad.GetAxis(GamePad.Axis.LeftStick, argIndex).x);
+        Jump(GamePad.GetButtonDown(GamePad.Button.A, argIndex));
+        RotaShoulder(GamePad.GetAxis(GamePad.Axis.RightStick, argIndex));
+        Attack(GamePad.GetTrigger(GamePad.Trigger.RightTrigger, argIndex));
+    }
+
     void OnTriggerStay2D(Collider2D collision)
     {
         Weapon weapon = collision.gameObject.GetComponent<Weapon>();
-        if(weapon)
+        if (weapon)
             canPick_ = true;
 
         TriggerStay2D(weapon, collision, (int)CharacterManager.Instance.Enemy.Power);
@@ -107,7 +136,7 @@ public class TestPlayer : Character
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isJumping_ = false;
         }
