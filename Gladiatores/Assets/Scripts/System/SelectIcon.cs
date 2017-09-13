@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectIcon : MonoBehaviour {
 
@@ -8,47 +9,63 @@ public class SelectIcon : MonoBehaviour {
     private VirtualChatactor chara;//所持している武器を取得するため
 
     [SerializeField]
-    private GameObject[] actions;
+    private Image[] squares;
 
     [SerializeField]
-    private GameObject[] squares;
+    private string[] iconName;
 
-    private GameObject parent;
+    Texture2D textureNS;
+    Texture2D textureS;
 
-	// Use this for initialization
-	void Start () {
+    //スプライト設定
+    Sprite spNS;//ノットセレクト
+    Sprite spS;//セレクト
+
+    // Use this for initialization
+    void Start () {
+        textureNS= Resources.Load("Textures/UI/SkillButton_Unselected") as Texture2D;
+        textureS = Resources.Load("Textures/UI/SkillButton_Selected") as Texture2D;
+
+        for (var i = 0; i < squares.Length; i++)
+        {
+            squares[i]= GameObject.Find("Canvas/SelectIcon/"+iconName[i]).GetComponent<Image>();
+        }
+        //変更するスプライトの作成
+        spNS = Sprite.Create(textureNS, new Rect(0, 0, textureNS.width, textureNS.height), Vector2.zero);
+        spS = Sprite.Create(textureS, new Rect(0, 0, textureS.width, textureS.height), Vector2.zero);
     }
 
     // Update is called once per frame
     void Update () {
-		switch(chara.WeaponType())
+        //デバッグ用※要書き換え
+        switch (chara.WeaponType())
         {
             case 0://パンチを選択時
-                actions[0].transform.position = squares[0].transform.position;
-                actions[1].transform.position = squares[1].transform.position;
-                actions[2].transform.position = squares[2].transform.position;
-                actions[3].transform.position = squares[3].transform.position;
+                squares[0].sprite = spS;
+                squares[1].sprite = spNS;
+                squares[2].sprite = spNS;
+                squares[3].sprite = spNS;
                 break;
 
             case 1:
-                actions[1].transform.position = squares[0].transform.position;
-                actions[0].transform.position = squares[1].transform.position;
-                actions[2].transform.position = squares[2].transform.position;
-                actions[3].transform.position = squares[3].transform.position;
+                squares[0].sprite = spNS;
+                squares[1].sprite = spS;
+                squares[2].sprite = spNS;
+                squares[3].sprite = spNS;
                 break;
 
             case 2:
-                actions[2].transform.position = squares[0].transform.position;
-                actions[0].transform.position = squares[1].transform.position;
-                actions[1].transform.position = squares[2].transform.position;
-                actions[3].transform.position = squares[3].transform.position;
+                squares[0].sprite = spNS;
+                squares[1].sprite = spNS;
+                squares[2].sprite = spS;
+                squares[3].sprite = spNS;
                 break;
 
             case 3:
-                actions[3].transform.position = squares[0].transform.position;
-                actions[0].transform.position = squares[1].transform.position;
-                actions[1].transform.position = squares[2].transform.position;
-                actions[2].transform.position = squares[3].transform.position;
+                squares[0].sprite = spNS;
+                squares[1].sprite = spNS;
+                squares[2].sprite = spNS;
+                squares[3].sprite = spS;
                 break;
         }
 	}

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
     //HPゲージを表示するキャラクター
-    [SerializeField]
-    Character character;
+    //[SerializeField]
+    //Character character;
     //体力を表示している
     [SerializeField]
     private Image healthGauge;
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour {
         //--------------------------------------------
         //※ここを変更してプレイヤーのステータスをもらう
         //体力
-        healthMax = character.Life;
+        //healthMax = character.Life;
         //--------------------------------------------
         displayHealthPoint = healthMax;
 
@@ -37,13 +37,13 @@ public class Health : MonoBehaviour {
     void Update()
     {
         //プレイヤーの上に表示する
-        this.transform.position = Camera.main.WorldToScreenPoint(character.gameObject.transform.position + new Vector3(0f, 1.6f, 0f));
+        //this.transform.position = Camera.main.WorldToScreenPoint(character.gameObject.transform.position + new Vector3(0f, 1.6f, 0f));
 
         //体力の減少に動きをつける
-        if (displayHealthPoint != character.Life)
-        {
-            displayHealthPoint = (int)Mathf.Lerp(displayHealthPoint, character.Life, 0.05f);
-        }
+        //if (displayHealthPoint != character.Life)
+        //{
+        //    displayHealthPoint = (int)Mathf.Lerp(displayHealthPoint, character.Life, 0.05f);
+        //}
 
         //体力の表示
         float wid = Mathf.Clamp(((float)displayHealthPoint / (float)healthMax) * 95.0f, 0f, 95f);
