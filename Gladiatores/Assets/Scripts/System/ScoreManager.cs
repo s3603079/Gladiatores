@@ -63,10 +63,10 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     // Update is called once per frame
     void Update()
     {
-        if (CharacterManager.Instance.Enemy.Life <= 0)//敵が死んだら
-        {
-            AddScore();//スコアを入手
-        }
+        //if (CharacterManager.Instance.Enemy.Life <= 0)//敵が死んだら
+        //{
+        //    AddScore();//スコアを入手
+        //}
     }
 
     public void AddScore()
