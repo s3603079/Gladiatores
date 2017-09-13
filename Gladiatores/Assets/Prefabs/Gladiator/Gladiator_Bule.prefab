@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 50524518613097820}
   - component: {fileID: 58639701636373350}
   - component: {fileID: 114885750900059500}
+  - component: {fileID: 114299232290803598}
   m_Layer: 0
   m_Name: Gladiator_Bule
   m_TagString: Untagged
@@ -345,6 +346,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackedReach_: 1
   spring: 1
+--- !u!114 &114299232290803598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1466504329695086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd858bcb34853bc4aad6a69c4575bf6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spd_: {x: 5, y: 2}
+  life_: 0
+  InvisibleTime: 1
 --- !u!114 &114427973037017774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,7 +406,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1466504329695086}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e92d82a33d4cb874e9f5fc08a1d6b7a6, type: 3}
   m_Name: 
