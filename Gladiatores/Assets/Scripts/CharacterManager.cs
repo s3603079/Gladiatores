@@ -5,7 +5,8 @@ using GamepadInput;
 
 public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
 {
-    List<Player> playerList_ = new List<Player>();
+    const int EntryPlayerMax = 2;
+    Player []playerList_ = new Player[EntryPlayerMax];
 
     BaseEnemy enemy_;
     Vector2 entryPos = new Vector2(10, 0);
@@ -17,7 +18,7 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         get { return enemy_; }
         set { enemy_ = value; }
     }
-    public List<Player> PlayerList
+    public Player []PlayerList
     {
         get { return playerList_; }
     }
@@ -36,18 +37,25 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         //  HACK    :   デバックシーンの為、仮の処理
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (var player in players)
+        for (int lPlayerIndex = 0; lPlayerIndex < EntryPlayerMax; lPlayerIndex++)
         {
-            playerList_.Add(player.GetComponent<Player>());
+            if(players.Length == lPlayerIndex)
+            {
+                break;
+            }
+            playerList_[lPlayerIndex] = players[lPlayerIndex].GetComponent<Player>();
         }
         enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
     }
 	
 	void Update ()
     {
-        foreach (var player in playerList_)
+        
+        playerList_[0].Actions(GamePad.Index.One);
+
+        if (playerList_[1])
         {
-            player.Actions(GamePad.Index.One);
+            playerList_[1].Actions(GamePad.Index.Two);
         }
 
         if (!enemy_.gameObject.activeSelf)

@@ -48,19 +48,6 @@ public class TestScoreManager : SingletonMonoBehaviour<TestScoreManager>
     }
     void Update()
     {
-#if false   //  Debug
-        if (Input.GetKey(KeyCode.A))
-        {
-            Debug.Log("life" + CharacterManager.Instance.Enemy.Life.ToString());
-            int test = CharacterManager.Instance.Enemy.Life - (int)CharacterManager.Instance.PlayerList[0].Power;
-            Debug.Log("test" + test.ToString());
-            CharacterManager.Instance.Enemy.Life = test;
-            if(CharacterManager.Instance.Enemy.Life <= 0)
-            {
-                CharacterManager.Instance.Enemy.IsLiving = false;
-            }
-        }
-#endif      //  Debug
     }
 
     public void AddScore()
