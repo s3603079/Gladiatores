@@ -7,6 +7,8 @@ public class Cursor : MonoBehaviour {
 
     [SerializeField]
     private RectTransform[] positions;
+    [SerializeField]
+    private string[] scenes;
 
     private Vector3 offset;
     private float coolTime;
@@ -48,16 +50,14 @@ public class Cursor : MonoBehaviour {
         // シーン遷移
         if (GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Any))
         {
-            switch(selectNumber)
+            if (string.Equals(scenes[selectNumber], ""))
             {
-                case 0:
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-                    break;
-                case 1:
-                    Application.Quit();
-                    break;
-                default:
-                    break;
+                Debug.Log("Quit");
+                Application.Quit();
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(scenes[selectNumber]);
             }
         }
     }
