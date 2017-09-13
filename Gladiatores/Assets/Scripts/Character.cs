@@ -36,6 +36,9 @@ public class Character : MonoBehaviour
 
     Weapon[] weaponGroupType_ = new Weapon[(int)WeaponType.Max];      //  !<  所持している武器の種類の一覧
 
+    Transform shoulder_;                                //  !<  アニメーションさせる肩
+
+
     public Vector2 Spd
     {
         get { return spd_; }
@@ -81,7 +84,8 @@ public class Character : MonoBehaviour
         rigid2d_ = GetComponent<Rigidbody2D>();
         direction_ = transform.localScale;
 
-        Transform arm = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0);
+        shoulder_ = transform.GetChild(0).transform.GetChild(0);
+        Transform arm = shoulder_.transform.GetChild(0);
 
         weaponGroupType_[(int)WeaponType.Punch] = arm.GetChild(0).gameObject.GetComponent<Weapon>();
         weaponGroupType_[(int)WeaponType.Sword] = arm.GetChild(1).gameObject.GetComponent<Weapon>();
@@ -170,6 +174,22 @@ public class Character : MonoBehaviour
         weaponGroupType_[argWeaponTypeIndex].gameObject.SetActive(true);
         equipmentWeapon_ = weaponGroupType_[argWeaponTypeIndex];
 
+    }
+
+    public void RotaShoulder(Vector2 argInputAxis)
+    {
+        // 入力軸の横方向で向きを決定
+        if (argInputAxis.x <= -0.1f)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (argInputAxis.x >= 0.1f)
+        {
+            transform.localScale = new Vector3(+Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+
+        // 入力軸の縦方向で角度を修正
+        shoulder_.localEulerAngles = (transform.forward * argInputAxis.y * 90f) + transform.forward * 90f;
     }
 
     protected void TriggerStay2D(Weapon argWeapon, Collider2D argCollision, int argDamage)

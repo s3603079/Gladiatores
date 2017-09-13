@@ -3160,7 +3160,7 @@ GameObject:
   - component: {fileID: 1686108567}
   - component: {fileID: 1686108566}
   - component: {fileID: 1686108565}
-  - component: {fileID: 1686108569}
+  - component: {fileID: 1686108570}
   m_Layer: 0
   m_Name: PlayerGladiator
   m_TagString: Player
@@ -3235,7 +3235,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1686108569
+--- !u!114 &1686108570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3243,7 +3243,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1686108564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026541e44b6d1b5459a57e885fd5b250, type: 3}
+  m_Script: {fileID: 11500000, guid: bd858bcb34853bc4aad6a69c4575bf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spd_: {x: 5, y: 2}
