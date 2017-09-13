@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SelectIcon : MonoBehaviour {
 
     [SerializeField]
-    private VirtualChatactor chara;//所持している武器を取得するため
+    private Character character;
 
     [SerializeField]
     private Image[] squares;
@@ -37,8 +37,7 @@ public class SelectIcon : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //デバッグ用※要書き換え
-        switch (chara.WeaponType())
+        switch ((int)character.EquipmentWeapon.ThisWeaponType)
         {
             case 0://パンチを選択時
                 squares[0].sprite = spS;

@@ -57,6 +57,8 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     // Use this for initialization
     void Start()
     {
+        PlayerKillCount = CharacterManager.Instance.PlayerList[0].gameObject.GetComponent<KillCount>();
+
         displayScore = score;
     }
 
@@ -72,7 +74,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     public void AddScore()
     {
         //キルカウントの加算
-        PlayerKillCount.AddKillCount();
+        PlayerKillCount.KillCounts++;
 
         //スコアの加算
         /*長時間生き残ると、スコアが高い*/

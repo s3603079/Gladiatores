@@ -26,10 +26,6 @@ public class VirtualChatactor : MonoBehaviour {
 
     void Update()
     {
-        if(!IsLiving())
-        {
-            _killCount.AddKillCount();//キルカウント＋１
-        }
         //デバッグ----------------------------------
         timer += Time.deltaTime;
         if(timer>=2f)
