@@ -87,10 +87,10 @@ public class Character : MonoBehaviour
         shoulder_ = transform.GetChild(0).transform.GetChild(0);
         Transform arm = shoulder_.transform.GetChild(0);
 
-        weaponGroupType_[(int)WeaponType.Punch] = arm.GetChild(0).gameObject.GetComponent<Weapon>();
-        weaponGroupType_[(int)WeaponType.Sword] = arm.GetChild(1).gameObject.GetComponent<Weapon>();
-        weaponGroupType_[(int)WeaponType.Shield] = arm.GetChild(2).gameObject.GetComponent<Weapon>();
-        weaponGroupType_[(int)WeaponType.Bow] = arm.GetChild(3).gameObject.GetComponent<Weapon>();
+        weaponGroupType_[(int)WeaponType.Punch] = arm.GetChild((int)WeaponType.Punch).gameObject.GetComponent<Weapon>();
+        weaponGroupType_[(int)WeaponType.Sword] = arm.GetChild((int)WeaponType.Sword).gameObject.GetComponent<Weapon>();
+        weaponGroupType_[(int)WeaponType.Shield] = arm.GetChild((int)WeaponType.Shield).gameObject.GetComponent<Weapon>();
+        weaponGroupType_[(int)WeaponType.Bow] = arm.GetChild((int)WeaponType.Bow).gameObject.GetComponent<Weapon>();
 
         equipmentWeapon_ = weaponGroupType_[(int)WeaponType.Punch].GetComponent<Weapon>();
 
@@ -173,7 +173,6 @@ public class Character : MonoBehaviour
         //  指定の武器をスタートアップ
         weaponGroupType_[argWeaponTypeIndex].gameObject.SetActive(true);
         equipmentWeapon_ = weaponGroupType_[argWeaponTypeIndex];
-
     }
 
     public void RotaShoulder(Vector2 argInputAxis)
