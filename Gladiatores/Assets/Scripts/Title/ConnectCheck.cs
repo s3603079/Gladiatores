@@ -12,28 +12,51 @@ public class ConnectCheck : MonoBehaviour {
     private bool multiFlag;//Flag of play multi
 
     [SerializeField]
-    private Text OneState;//state of 1P
+    private Image OneState;//state of 1P
 
     [SerializeField]
-    private Text TwoState;//state of 2P
+    private Image TwoState;//state of 2P
 
     [SerializeField]
-    private Text playButton;//Play Button
+    private Image playButton;//Play Button
 
     //1P,2PのAボタンを押したフラグ
     bool start1;
     bool start2;
+
+    //スプライトの切り替え
+    Texture2D textureBef;
+    Texture2D textureAfter;
+
+    Sprite spBef;
+    Sprite spAf;
+
+    //案内の点滅
+    [SerializeField]
+    private Text guide;
 
     // Use this for initialization
     void Start()
     {
         start1 = false;
         start2 = false;
+
+        textureBef = Resources.Load("Textures/UI/Player_NotReady") as Texture2D;
+        textureAfter = Resources.Load("Textures/UI/Player_Ready") as Texture2D;
+
+        OneState = GameObject.Find("Canvas/SelectIcon/controller(1P)").GetComponent<Image>();
+        TwoState = GameObject.Find("Canvas/SelectIcon/controller(2P)").GetComponent<Image>();
+
+        spBef = Sprite.Create(textureBef, new Rect(0, 0, textureBef.width, textureBef.height), Vector2.zero);
+        spBef = Sprite.Create(textureAfter, new Rect(0, 0, textureAfter.width, textureAfter.height), Vector2.zero);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //ガイドを点滅させる
+        guide.color = new Color(guide.color.r, guide.color.g, guide.color.b, Mathf.PingPong(Time.time, 1f));
+
         //Input.ResetInputAxes();
         // 接続されているコントローラの名前を調べる
         var controllerNames = Input.GetJoystickNames();
@@ -42,7 +65,8 @@ public class ConnectCheck : MonoBehaviour {
         //1P Player Login
         if (GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.One))
         {
-            OneState.color = new Color(OneState.color.r, OneState.color.g, OneState.color.b, 255f);
+            //OneState.color = new Color(OneState.color.r, OneState.color.g, OneState.color.b, 255f);
+            OneState.sprite = spAf;
             singleFlag = true;
         }
 
@@ -53,7 +77,8 @@ public class ConnectCheck : MonoBehaviour {
             {
                 multiFlag = true;
             }
-            TwoState.color = new Color(TwoState.color.r, TwoState.color.g, TwoState.color.b, 255f);
+            //TwoState.color = new Color(TwoState.color.r, TwoState.color.g, TwoState.color.b, 255f);
+            TwoState.sprite = spAf;
         }
 
 

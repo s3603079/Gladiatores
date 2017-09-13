@@ -48,7 +48,7 @@ public class BaseEnemy : Character
         bool res = true;
         if (equipmentWeapon_.ThisWeaponType != WeaponType.Punch)
             res = false;
-        TestPlayer player = CharacterManager.Instance.PlayerList[0];
+        Player player = CharacterManager.Instance.PlayerList[0];
         WeaponType playerWeaponType = player.EquipmentWeapon.ThisWeaponType;
 
         //  TODO    :   未実装
@@ -66,11 +66,14 @@ public class BaseEnemy : Character
 
     protected override void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
     {
-        TestPlayer player = CharacterManager.Instance.PlayerList[0];
+        Player player = CharacterManager.Instance.PlayerList[0];
         WeaponType playerWeaponType = player.EquipmentWeapon.ThisWeaponType;
 
         //  TODO    :   まだ未実装
         //if(playerWeaponType == equipmentWeapon_.WeakWeaponType)
+
+        Debug.Assert(WeaponManager.Instance.ActiveWeapons[0]);
+
         if (WeaponManager.Instance.ActiveWeapons[0].StrengthWeaponType == playerWeaponType &&
             WeaponManager.Instance.ActiveWeapons[0].ThisWeaponType != equipmentWeapon_.ThisWeaponType)
         {
