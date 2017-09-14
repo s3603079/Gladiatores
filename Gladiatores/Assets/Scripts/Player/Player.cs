@@ -27,7 +27,7 @@ public class Player : Character
     void Update()
     {
         if (!isLiving_)
-        {// TODO    :   死亡処理
+        {// 死亡処理
             if(CharacterManager.Instance.IsEntryEnemy)
             {
                 // TODO    :   死亡処理

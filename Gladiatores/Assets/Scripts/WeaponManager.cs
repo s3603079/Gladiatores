@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
+public class WeaponManager : MonoBehaviour
 {
+    static WeaponManager instance_;
     List<Weapon> activeWeapons_ = new List<Weapon>();   //  !<  フィールドに落ちている武器 
     const string PrefabsPath = "Prefabs/Weapons/";    //  !<  武器のプレハブのパス
 
@@ -12,6 +13,11 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
 
     float weaponPopTime_ = Mathf.Infinity;
     float currentPopTime_ = 0.0f;
+
+    public static WeaponManager Instance
+    {
+        get { return instance_; }
+    }
 
     public void ResetWeaponPopTimeAndWeaponPop()
     {
@@ -75,9 +81,9 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
         return weapon;
     }
 
-    override protected void Awake()
+    void Awake()
     {
-        base.Awake();
+        instance_ = this;
     }
 
     void Start()
@@ -93,20 +99,6 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
             if (!weaponGruop[lType])
                 continue;
             weaponTypeGruop_[lType] = weaponGruop[lType].GetComponent<Weapon>();
-        }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene argScene, LoadSceneMode argSceneMode)
-    {
-        if(argScene.name != "arenaMulti" &&
-           argScene.name != "arenaSingle")
-        {
-            foreach(var activeWeapon in activeWeapons_)
-            {
-                RemoveActiveWeapon(activeWeapon.gameObject);
-            }
         }
     }
 

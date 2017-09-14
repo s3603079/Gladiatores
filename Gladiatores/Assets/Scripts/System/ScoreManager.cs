@@ -63,6 +63,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     public int Score
     {
         get { return score; }
+        set { score = value; }
     }
 
     protected override void Awake()
@@ -84,6 +85,14 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 
     void OnSceneLoaded(Scene argScene, LoadSceneMode argSceneMode)
     {
+        if (string.Equals(argScene.name, "arenaSingle") || string.Equals(argScene.name, "arenaMulti"))
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+            
+            playerKillCount = players[0].GetComponent<KillCount>();
+            displayScore = score;
+        }
         if (string.Equals(argScene.name, "Result"))
         {
             if (!scoreText)

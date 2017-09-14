@@ -755,7 +755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 77.10001, y: 0}
+  m_AnchoredPosition: {x: 77.10002, y: 0}
   m_SizeDelta: {x: 144.2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &210735929
@@ -854,7 +854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 79.6, y: 0}
+  m_AnchoredPosition: {x: 79.600006, y: 0}
   m_SizeDelta: {x: 139.2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &290171281
@@ -1575,6 +1575,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4050175427305666, guid: 120addc0b1185c743b6ddd4c830cf3c4, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114128152357019456, guid: 120addc0b1185c743b6ddd4c830cf3c4,
+        type: 2}
+      propertyPath: entryEnemyLife_
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
