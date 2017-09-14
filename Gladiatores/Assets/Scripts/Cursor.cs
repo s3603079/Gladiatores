@@ -22,9 +22,8 @@ public class Cursor : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
         // 操作不可の時間はここにて終了
-        if (coolTime++ <= 10F) return;
+        if (coolTime++ <= 30F) return;
 
         // 左スティックの入力値を取得
         var axis = GamePad.GetAxis(GamePad.Axis.LeftStick, GamePad.Index.Any);
@@ -45,7 +44,7 @@ public class Cursor : MonoBehaviour {
         if (selectNumber > positions.Length - 1) selectNumber = 0;
 
         // カーソルを選択肢の位置に合わせる
-        transform.position = offset + positions[selectNumber].position;
+        transform.localPosition = offset + positions[selectNumber].localPosition;
 
         // シーン遷移
         if (GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Any))
