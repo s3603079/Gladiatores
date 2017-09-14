@@ -9,9 +9,16 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     Player []playerList_ = new Player[EntryPlayerMax];
 
     BaseEnemy enemy_;
-    Vector2 entryPos = new Vector2(9, 0);
+    Vector2 entryPos = new Vector2(8, 0);
     const float ReEntryTime_ = 1.0f;
     float currentEntryTime_ = 0.0f;
+    
+    const string SingleScene = "arenaSingle";
+
+    public bool IsEntryEnemy
+    {
+        get { return string.Equals(SceneManager.GetActiveScene().name, SingleScene); }
+    }
 
     public BaseEnemy Enemy
     {
@@ -30,11 +37,6 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
 
     void Start()
     {
-        //if(SceneManager.GetActiveScene().name == "Play")
-        //{//   プレイシーンに入ったらオブジェクト格納
-        //}
-
-        //  HACK    :   デバックシーンの為、仮の処理
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int lPlayerIndex = 0; lPlayerIndex < EntryPlayerMax; lPlayerIndex++)
@@ -47,23 +49,22 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         }
         if (playerList_[0])
         {
-            playerList_[0].SetPadNumber = GameManager.Instance.oneIndex; ;
+            playerList_[0].SetPadNumber = GameManager.Instance.oneIndex;
         }
-
-        var sceneName = SceneManager.GetActiveScene().name;
-        if (string.Equals(sceneName, "arenaMulti"))
-        {
-            playerList_[1].SetPadNumber = GameManager.Instance.twoIndex;
-        }
-        if (string.Equals(sceneName, "arenaSingle"))
+        
+        if (IsEntryEnemy)
         {
             enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
+        }
+        else
+        {
+            playerList_[1].SetPadNumber = GameManager.Instance.twoIndex;
         }
     }
 	
 	void Update ()
     {
-        if (string.Equals(SceneManager.GetActiveScene().name, "arenaSingle"))
+        if (IsEntryEnemy)
         {
             if (!enemy_.gameObject.activeSelf)
             {

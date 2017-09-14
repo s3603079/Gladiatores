@@ -48,6 +48,7 @@ public class TestScoreManager : SingletonMonoBehaviour<TestScoreManager>
     }
     void Update()
     {
+
     }
 
     public void AddScore()

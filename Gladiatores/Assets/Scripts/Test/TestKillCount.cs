@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TestKillCount : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class TestKillCount : MonoBehaviour
 
     [SerializeField]
     bool isInverted;//ゲージの反転処理
+
+    public int MaxKillCnt
+    {
+        get { return maxKillCount_; }
+    }
 
 
     public int KillCount
@@ -36,6 +42,12 @@ public class TestKillCount : MonoBehaviour
      
         //アイコン上に討伐数を表示
         killText.text = killCount_.ToString();
+
+        if (maxKillCount_ == killCount_)
+        {
+            string nextScene = (CharacterManager.Instance.IsEntryEnemy) ? "Result" : "ResultMulti";
+            SceneManager.LoadScene(nextScene);
+        }
     }
 
 }
