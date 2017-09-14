@@ -168,9 +168,7 @@ public class Character : MonoBehaviour
         ChangeWeapon((int)argWeaponType);
         WeaponManager.Instance.RemoveActiveWeapon(argGameObject);
     }
-    /// <summary>
-    /// 敵とデバックオブジェクト用の攻撃関数
-    /// </summary>
+
     public void Attack()
     {
         rigid2d_.velocity = new Vector2(0, 0);
@@ -231,7 +229,6 @@ public class Character : MonoBehaviour
         if (isHitting_ ||
             (argCollision.tag != "Arrow" && !argCollision.gameObject.transform.parent.parent.parent.parent.gameObject.GetComponent<Character>().IsAttacking))
             return;
-        
 
         isHitting_ = true;
         life_ -= argDamage;

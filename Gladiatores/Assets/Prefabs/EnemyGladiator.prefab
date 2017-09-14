@@ -52,8 +52,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4122199739505900}
-  - component: {fileID: 58940118151117784}
   - component: {fileID: 114699739306919666}
+  - component: {fileID: 61180278235948114}
   m_Layer: 0
   m_Name: Punch
   m_TagString: Untagged
@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 58310453487004656}
   - component: {fileID: 114004728925773434}
   - component: {fileID: 114270733557521110}
-  - component: {fileID: 114099003421179672}
   m_Layer: 0
   m_Name: EnemyGladiator
   m_TagString: Enemy
@@ -296,8 +295,8 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -10}
   serializedVersion: 2
   m_Radius: 2
---- !u!58 &58940118151117784
-CircleCollider2D:
+--- !u!61 &61180278235948114
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -308,9 +307,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 3.17}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Size: {x: 3, y: 10}
+  m_EdgeRadius: 0
 --- !u!61 &61182702389692326
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -425,21 +434,6 @@ MonoBehaviour:
   arrowPrefab: {fileID: 1192143889291222, guid: 6a87387046056484ca3369906c890ef6,
     type: 2}
   shotPower: 10
---- !u!114 &114099003421179672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1957329181505390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e60d1968bbd6cbf4e981e6ce8202dd32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxKillCount_: 100
-  slider: {fileID: 0}
-  killText: {fileID: 0}
-  isInverted: 0
 --- !u!114 &114170978125063678
 MonoBehaviour:
   m_ObjectHideFlags: 1
