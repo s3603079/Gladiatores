@@ -109,8 +109,6 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     void EntryEnemy()
     {
         Vector2 pos = (playerList_[0].gameObject.transform.position.x < 0) ? entryPos : -entryPos;
-        //  HACK    :   プレイヤーの弱点タイプ
-        //playerList_[0].EquipmentWeapon.WeakWeaponType
-        enemy_.Initialize((int)WeaponType.Sword, 50, pos);
+        enemy_.Initialize((int)playerList_[0].EquipmentWeapon.WeakWeaponType, 100, pos);
     }
 }

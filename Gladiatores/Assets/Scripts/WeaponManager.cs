@@ -115,9 +115,9 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
         if (SceneManager.GetActiveScene().name == "arenaMulti" ||
             SceneManager.GetActiveScene().name == "arenaSingle")
         {
+            currentPopTime_ += Time.deltaTime;
             if (CharacterManager.Instance.IsEntryEnemy)
             {
-                currentPopTime_ += Time.deltaTime;
                 if (weaponPopTime_ < currentPopTime_)
                 {
                     ResetWeaponPopTimeAndWeaponPop();
@@ -125,7 +125,6 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
             }
             else
             {
-                currentPopTime_ += Time.deltaTime;
                 const float WeaponPopTime = 10f;
                 if (WeaponPopTime < currentPopTime_)
                 {
