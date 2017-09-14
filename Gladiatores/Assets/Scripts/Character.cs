@@ -18,6 +18,9 @@ public class Character : MonoBehaviour
     [SerializeField]
     float InvisibleTime  = 1f;                          //  !<  最大無敵時間
 
+    GameObject head_;
+
+
     protected Weapon equipmentWeapon_;                  //  !<  装備している武器
     protected Rigidbody2D rigid2d_;                     //  !<  剛体
     protected Vector2 pos_;                             //  !<  座標
@@ -39,6 +42,8 @@ public class Character : MonoBehaviour
 
     SpriteRenderer []spriteRenderers_ = new SpriteRenderer[3];
 
+    const string PrefabsPath = "Prefabs/"
+;
     public Vector2 Spd
     {
         get { return spd_; }
@@ -116,10 +121,15 @@ public class Character : MonoBehaviour
         spriteRenderers_[0] = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         spriteRenderers_[1] = shoulder_.GetComponent<SpriteRenderer>();
         spriteRenderers_[2] = arm.gameObject.GetComponent<SpriteRenderer>();
+
+        head_ = (GetComponent<BaseEnemy>()) ? Resources.Load(PrefabsPath + "EnemyHead") as GameObject : Resources.Load(PrefabsPath + "PlayerHead") as GameObject;
+        head_ = Instantiate(head_);
     }
     protected void Update()
     {
         pos_ = transform.position;
+        head_.transform.position = new Vector2(transform.position.x, transform.position.y + 1.2f);
+
         if (isAttacking_)
         {
             if (--currentAttackFrame_ < 0)
