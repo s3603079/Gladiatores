@@ -101,10 +101,20 @@ public class ConnectCheck : MonoBehaviour {
             if (start1 && start2)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("arenaMulti");
+                GameManager.Instance.oneIndex = GamepadInput.GamePad.Index.One;
+                GameManager.Instance.twoIndex = GamepadInput.GamePad.Index.Two;
             }
             else if (start1 || start2)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("arenaSingle");
+                if (start1)
+                {
+                    GameManager.Instance.oneIndex = GamepadInput.GamePad.Index.One;
+                }
+                if(start2)
+                {
+                GameManager.Instance.oneIndex = GamepadInput.GamePad.Index.Two;
+                }
             }
         }
 
