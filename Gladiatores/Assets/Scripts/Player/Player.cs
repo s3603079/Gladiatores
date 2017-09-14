@@ -28,6 +28,14 @@ public class Player : Character
     {
         if (!isLiving_)
         {// TODO    :   死亡処理
+            if(CharacterManager.Instance.IsEntryEnemy)
+            {
+                // TODO    :   死亡処理
+            }
+            else
+            {
+                ScoreManager.Instance.AddOtherPlayerScore(this);
+            }
         }
         
         Actions();
@@ -97,7 +105,15 @@ public class Player : Character
         if (weapon)
             canPick_ = true;
 
-        TriggerStay2D(weapon, collision, (int)CharacterManager.Instance.Enemy.Power);
+        if (CharacterManager.Instance.IsEntryEnemy)
+        {
+            TriggerStay2D(weapon, collision, (int)CharacterManager.Instance.Enemy.Power);
+        }
+        else
+        {
+            int otherPlayerPower = (int)CharacterManager.Instance.OtherPlayer(this).Power;
+            TriggerStay2D(weapon, collision, otherPlayerPower);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

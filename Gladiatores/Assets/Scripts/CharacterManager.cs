@@ -10,7 +10,7 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
 
     BaseEnemy enemy_;
     Vector2 entryPos = new Vector2(8, 0);
-    const float ReEntryTime_ = 1.0f;
+    const float ReEntryTime_ = 2.0f;
     float currentEntryTime_ = 0.0f;
     
     const string SingleScene = "arenaSingle";
@@ -19,6 +19,21 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     {
         get { return string.Equals(SceneManager.GetActiveScene().name, SingleScene); }
     }
+
+    public Player OtherPlayer(Player argPlayer)
+    {
+        Player otherPlayerPower = null;
+        foreach (var player in playerList_)
+        {
+            if (argPlayer != player)
+            {
+                otherPlayerPower = player;
+                break;
+            }
+        }
+        return otherPlayerPower;
+    }
+
 
     public BaseEnemy Enemy
     {
@@ -70,7 +85,7 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
             {
                 if (currentEntryTime_ <= 0.0f)
                 {// 敵が死んだ瞬間のみスコア計算
-                    TestScoreManager.Instance.AddScore();
+                    ScoreManager.Instance.SingleScore();
                 }
 
                 currentEntryTime_ += Time.deltaTime;

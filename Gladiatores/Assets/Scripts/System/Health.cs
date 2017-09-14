@@ -36,8 +36,9 @@ public class Health : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //プレイヤーの上に表示する
-        this.transform.position = Camera.main.WorldToScreenPoint(character.gameObject.transform.position + new Vector3(0f, 1.6f, 0f));
+        //プレイヤーの上に表示するか画面外に飛ばす
+        transform.position = (character.gameObject.activeSelf) ? Camera.main.WorldToScreenPoint(character.gameObject.transform.position + new Vector3(0f, 1.6f, 0f)) : 
+            Camera.main.WorldToScreenPoint(character.gameObject.transform.position + new Vector3(-10000f, 1.6f, 0f));
 
         //体力の減少に動きをつける
         if (displayHealthPoint != character.Life)
@@ -48,5 +49,6 @@ public class Health : MonoBehaviour {
         //体力の表示
         float wid = Mathf.Clamp(((float)displayHealthPoint / (float)healthMax) * 95.0f, 0f, 95f);
         rt.sizeDelta = new Vector2(wid, 6.0f);
+        
     }
 }

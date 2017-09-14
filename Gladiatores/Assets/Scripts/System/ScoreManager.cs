@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
 {
@@ -69,7 +70,6 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         base.Awake();
     }
 
-    // Use this for initialization
     void Start()
     {
         var sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
@@ -79,15 +79,40 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
             playerKillCount = CharacterManager.Instance.PlayerList[0].gameObject.GetComponent<KillCount>();
             displayScore = score;
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnSceneLoaded(Scene argScene, LoadSceneMode argSceneMode)
     {
-        //if (CharacterManager.Instance.Enemy.Life <= 0)//敵が死んだら
-        //{
-        //    AddScore();//スコアを入手
-        //}
+        if (string.Equals(argScene.name, "Result"))
+        {
+            if (!scoreText)
+            {
+                scoreText = GameObject.FindGameObjectWithTag("ScoreNumber").GetComponent<Text>();
+            }
+        }
+        else if (string.Equals(argScene.name, "ResultForMulti"))
+        {
+            if (!scoreText)
+            {
+                GameObject[] texts = GameObject.FindGameObjectsWithTag("ScoreNumber");
+
+                playerKillNum = texts[0].GetComponent<Text>();
+                secondKillNum = texts[0].GetComponent<Text>();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (string.Equals(SceneManager.GetActiveScene().name, "Result"))
+        {
+            DrawScore();
+        }
+        else if (string.Equals(SceneManager.GetActiveScene().name, "ResultForMulti"))
+        {
+            DrawMultiResult();
+        }
     }
 
     public void SingleScore()
@@ -99,6 +124,25 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         /*長時間生き残ると、スコアが高い*/
         score = (int)timer.GetTime() * 10 + playerKillCount.KillCounts * 100;
     }
+
+    public void AddOtherPlayerScore(Player argPlayer)
+    {
+        if(argPlayer == CharacterManager.Instance.PlayerList[0])
+        {
+            playerKillCount.KillCounts++;
+            //スコアの加算
+            /*長時間生き残ると、スコアが高い*/
+            score = (int)timer.GetTime() * 10 + playerKillCount.KillCounts * 100;
+        }
+        else
+        {
+            scondKillCount.KillCounts++;
+            //スコアの加算
+            /*長時間生き残ると、スコアが高い*/
+            score = (int)timer.GetTime() * 10 + scondKillCount.KillCounts * 100;
+        }
+    }
+
 
     public void DrawScore()
     {
@@ -115,8 +159,15 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     {
         //1PのkillCount表示
         playerKillNum.text = playerKillCount.KillCounts.ToString();
-
+        if(playerKillNum.text == "")
+        {
+            playerKillNum.text = "0";
+        }
         //2PのkillCount表示
         secondKillNum.text = scondKillCount.KillCounts.ToString();
+        if (secondKillNum.text == "")
+        {
+            secondKillNum.text = "0";
+        }
     }
 }

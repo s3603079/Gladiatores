@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class KillCount : MonoBehaviour {
     //殺した数
@@ -43,6 +44,11 @@ public class KillCount : MonoBehaviour {
         //アイコン上に討伐数を表示
         killText.text = killNumber.ToString();
 
+        if (maxKillCount == killNumber)
+        {
+            string nextScene = (CharacterManager.Instance.IsEntryEnemy) ? "Result" : "ResultForMulti";
+            SceneManager.LoadScene(nextScene);
+        }
     }
 
     public void AddKillCount()
