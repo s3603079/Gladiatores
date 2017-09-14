@@ -33,11 +33,13 @@ public class Cursor : MonoBehaviour {
         {
             coolTime = 0F;
             selectNumber--;
+            SoundManager.Instance.PlaySE("cursorMovement");
         }
         if (Vector2.Distance(axis, Vector2.down) <= 0F)
         {
             coolTime = 0;
             selectNumber++;
+            SoundManager.Instance.PlaySE("cursorMovement");
         }
         // 配列をオーバーしないための処理
         if (selectNumber < 0) selectNumber = positions.Length - 1;
@@ -49,6 +51,7 @@ public class Cursor : MonoBehaviour {
         // シーン遷移
         if (GamePad.GetButtonDown(GamePad.Button.A, GamePad.Index.Any))
         {
+            SoundManager.Instance.PlaySE("cursorDecide");
             if (string.Equals(scenes[selectNumber], ""))
             {
                 Debug.Log("Quit");
