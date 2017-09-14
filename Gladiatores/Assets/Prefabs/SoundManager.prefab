@@ -54,10 +54,14 @@ MonoBehaviour:
   volume: 0.5
   bgmClips:
   - {fileID: 8300000, guid: a9e59124efa51034387522ff6774badb, type: 3}
+  - {fileID: 8300000, guid: 11ffb42b32568874f9279e7ef3443450, type: 3}
+  - {fileID: 8300000, guid: f13e34088a7c70944929d1cbd809ce5e, type: 3}
+  - {fileID: 8300000, guid: 6349b6ec6560df94e89543317b144666, type: 3}
   seClips:
   - {fileID: 8300000, guid: 2cc01e04dff0c214fbe4ac7ff4b1f30a, type: 3}
   - {fileID: 8300000, guid: 65778377b49907d418490303ffb2caf7, type: 3}
-  - {fileID: 8300000, guid: d3e013b382c799c42956277a03b60a37, type: 3}
-  - {fileID: 8300000, guid: a22b49c2b5a90674ba0eb7fcb64ba957, type: 3}
   - {fileID: 8300000, guid: d7828b4c10b424f409aa655a0669c42b, type: 3}
   - {fileID: 8300000, guid: a22b49c2b5a90674ba0eb7fcb64ba957, type: 3}
+  - {fileID: 8300000, guid: d3e013b382c799c42956277a03b60a37, type: 3}
+  - {fileID: 8300000, guid: 75d9d317093097c43a25b9b0b9ac39e8, type: 3}
+  - {fileID: 8300000, guid: 052e33ba680697c4fa81fd846eade7c8, type: 3}
