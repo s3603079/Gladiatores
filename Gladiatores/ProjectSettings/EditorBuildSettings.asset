@@ -4,4 +4,28 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: a90162c54049b3444be91ada9e253ad0
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 2bfb7b74b0eb22a409880c4bab624c12
+  - enabled: 1
+    path: Assets/Scenes/Ready.unity
+    guid: eb555762016c51e4692a7411dc6fe62e
+  - enabled: 1
+    path: Assets/Scenes/arenaSingle.unity
+    guid: b574e33bc4b88c44cb5a4c116eaf7aa4
+  - enabled: 1
+    path: Assets/Scenes/arenaMulti.unity
+    guid: 86d86db62e7f70844a2c1c76ca474c23
+  - enabled: 0
+    path: Assets/Scenes/Game.unity
+    guid: 297cebc2bb44b73488a0ec97dd8c01de
+  - enabled: 1
+    path: Assets/Scenes/Result.unity
+    guid: 05f6f62bfb2594d40a48951ce093b7c4
+  - enabled: 1
+    path: Assets/Scenes/ResultForMulti.unity
+    guid: 970bae3f76e3d2641af4b89e23000fae
