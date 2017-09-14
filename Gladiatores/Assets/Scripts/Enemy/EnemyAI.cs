@@ -17,9 +17,8 @@ public class EnemyAI : MonoBehaviour
 	
     public void Execute(BaseEnemy argBaseEnemy)
     {
-        //  攻撃中は行動しない
         if (argBaseEnemy.IsAttacking)
-        {
+        {//  攻撃中は行動しない
             argBaseEnemy.Animation();
             return;
         }

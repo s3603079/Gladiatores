@@ -4,6 +4,12 @@ using GamepadInput;
 public class Player : Character
 {
     bool canPick_ = false;                    //  !<  アイテムを拾えるかどうかのフラグ
+    PlayerInputPad pad_;
+
+    public GamePad.Index SetPadNumber
+    {
+        set { pad_.PadNumber = value; }
+    }
 
     void Start()
     {
@@ -11,6 +17,7 @@ public class Player : Character
         base.Start();
         logRegistKey_[(int)LogNum.Attack] = "Player Attaking : ";
         logRegistKey_[(int)LogNum.TakeDamage] = "Enemy Attack for Player!! ";
+        pad_ = GetComponent<PlayerInputPad>();
     }
 
     void Update()
@@ -18,12 +25,14 @@ public class Player : Character
         if (!isLiving_)
         {// TODO    :   死亡処理
         }
+        
+        Actions();
         base.Update();
     }
 
     protected override void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
     {
-        if (!Input.GetKeyDown(KeyCode.E))
+        if (!pad_.GetLeftTriggerPushed())
             return;
 
         if (equipmentWeapon_.ThisWeaponType != WeaponType.Punch && !argGameObject)
@@ -38,12 +47,16 @@ public class Player : Character
         }
     }
 
-    public void Actions(GamePad.Index argIndex)
+    void Actions()
     {
-        Walk(GamePad.GetAxis(GamePad.Axis.LeftStick, argIndex).x);
-        Jump(GamePad.GetButtonDown(GamePad.Button.A, argIndex));
-        RotaShoulder(GamePad.GetAxis(GamePad.Axis.RightStick, argIndex));
-        Attack(GamePad.GetTrigger(GamePad.Trigger.RightTrigger, argIndex));
+        Walk(pad_.GetAxis(GamePad.Axis.LeftStick).x);
+        Jump(pad_.GetButtonDown(GamePad.Button.A));
+        RotaShoulder(pad_.GetAxis(GamePad.Axis.RightStick));
+        Attack(pad_.GetTrigger(GamePad.Trigger.RightTrigger));
+        if (!canPick_)
+            ChoiceWeapon();
+        canPick_ = false;
+
     }
 
     void Walk(float argInputValue)

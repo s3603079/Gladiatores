@@ -33,11 +33,11 @@ public class Character : MonoBehaviour
     float currentAttackFrame_ = AttackFinishFrame_;     //  !<  現在の攻撃時間
 
     float currentInvisibleTime_ = 0f;                   //  !<  被ダメージ時間
-
     Weapon[] weaponGroupType_ = new Weapon[(int)WeaponType.Max];      //  !<  所持している武器の種類の一覧
 
-    Transform shoulder_;                                //  !<  アニメーションさせる肩
+    protected Transform shoulder_;                                //  !<  アニメーションさせる肩
 
+    SpriteRenderer []spriteRenderers_ = new SpriteRenderer[3];
 
     public Vector2 Spd
     {
@@ -79,6 +79,15 @@ public class Character : MonoBehaviour
     {
         get { return direction_; }
     }
+
+    void ChangeColorChildSprite(float argColor)
+    {
+        foreach (var lSpriteRenderer in spriteRenderers_)
+        {
+            lSpriteRenderer.color = new Color(lSpriteRenderer.color.r, lSpriteRenderer.color.g, lSpriteRenderer.color.b, argColor);
+        }
+    }
+
     protected void Start()
     {
         rigid2d_ = GetComponent<Rigidbody2D>();
@@ -103,6 +112,10 @@ public class Character : MonoBehaviour
 
             weaponGroupType_[lWeaponType].gameObject.SetActive(false);
         }
+
+        spriteRenderers_[0] = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderers_[1] = shoulder_.GetComponent<SpriteRenderer>();
+        spriteRenderers_[2] = arm.gameObject.GetComponent<SpriteRenderer>();
     }
     protected void Update()
     {
@@ -113,19 +126,21 @@ public class Character : MonoBehaviour
             {// 攻撃から1秒たったら普通の状態
                 currentAttackFrame_ = AttackFinishFrame_;
                 isAttacking_ = false;
-                Logger.RemoveLog(logRegistKey_[(int)LogNum.Attack]);
             }
         }
 
         if (!isHitting_)
             return;
 
+
+        ChangeColorChildSprite(0.5f);
         currentInvisibleTime_ += Time.deltaTime;
         if (currentInvisibleTime_ > InvisibleTime)
         {// 被ダメージ状態から1秒たったら普通の状態
             currentInvisibleTime_ = 0f;
             isHitting_ = false;
-            Logger.RemoveLog(logRegistKey_[(int)LogNum.TakeDamage]);
+            ChangeColorChildSprite(1f);
+
         }
     }
 
@@ -136,6 +151,7 @@ public class Character : MonoBehaviour
         life_ = argLife;
         ChangeWeapon(argWeaponTypeIndex);
         transform.position = argEntryPos;
+        transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     protected virtual void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
@@ -143,15 +159,13 @@ public class Character : MonoBehaviour
         ChangeWeapon((int)argWeaponType);
         WeaponManager.Instance.RemoveActiveWeapon(argGameObject);
     }
-
-    public virtual void Attack()
+    /// <summary>
+    /// 敵とデバックオブジェクト用の攻撃関数
+    /// </summary>
+    public void Attack()
     {
-        //  TODO    :   animation
-
         rigid2d_.velocity = new Vector2(0, 0);
         isAttacking_ = true;
-        string weaponTypeName = equipmentWeapon_.ThisWeaponType.ToString();
-        Logger.Log(logRegistKey_[(int)LogNum.Attack], logRegistKey_[(int)LogNum.Attack] + weaponTypeName);
     }
 
     public void Jump()
@@ -174,7 +188,7 @@ public class Character : MonoBehaviour
         equipmentWeapon_ = weaponGroupType_[argWeaponTypeIndex];
     }
 
-    public void RotaShoulder(Vector2 argInputAxis)
+    protected void RotaShoulder(Vector2 argInputAxis)
     {
         // 入力軸の横方向で向きを決定
         if (argInputAxis.x <= -0.1f)
@@ -195,19 +209,17 @@ public class Character : MonoBehaviour
         if (!argWeapon)
             return;
 
-        if (!argCollision.gameObject.transform.parent)
-        {// 落ちている武器に触れていれば
+        if (argWeapon && !argCollision.gameObject.transform.parent)
+        {// 落ちている武器に触れていれば武器の交換が可能
             ChoiceWeapon(argWeapon.ThisWeaponType, argCollision.gameObject);
+            
+            //  落ちている武器ではダメージは無し
+            return;
         }
+
         //  TODO    :   add knock back
-        if (isHitting_)
+        if (isHitting_ || argCollision.transform.parent.parent == shoulder_.transform)
             return;
-
-        //  落ちている武器ではダメージは無し
-        if (!argCollision.gameObject.transform.parent)
-            return;
-
-        Logger.Log(logRegistKey_[(int)LogNum.TakeDamage], argCollision.tag + " : " + logRegistKey_[(int)LogNum.TakeDamage] + argDamage.ToString() + " Damage!!");
 
         isHitting_ = true;
         life_ -= argDamage;

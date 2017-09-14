@@ -1096,7 +1096,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 205499479}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 0}
+  m_LocalPosition: {x: 9.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2028841943}
@@ -1436,7 +1436,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 310337589}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 0, z: 0}
+  m_LocalPosition: {x: -9.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2028841943}
@@ -2106,8 +2106,20 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114673710204346932, guid: b1f0f703153c2154ba1e5e046ebae622,
+        type: 2}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 1192143889291222, guid: 6a87387046056484ca3369906c890ef6,
+        type: 2}
+    - target: {fileID: 58483430753282010, guid: b1f0f703153c2154ba1e5e046ebae622,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114553286911800430, guid: b1f0f703153c2154ba1e5e046ebae622, type: 2}
+    - {fileID: 114979900903854720, guid: b1f0f703153c2154ba1e5e046ebae622, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b1f0f703153c2154ba1e5e046ebae622, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &504029464
@@ -4476,6 +4488,12 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114026642815714484, guid: d7d5a28cb19af7646b683e006f33bd80,
+        type: 2}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 1192143889291222, guid: 6a87387046056484ca3369906c890ef6,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 61865319515209144, guid: d7d5a28cb19af7646b683e006f33bd80, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d7d5a28cb19af7646b683e006f33bd80, type: 2}
@@ -5585,6 +5603,7 @@ GameObject:
   - component: {fileID: 1686108566}
   - component: {fileID: 1686108570}
   - component: {fileID: 1686108571}
+  - component: {fileID: 1686108565}
   m_Layer: 0
   m_Name: PlayerGladiator
   m_TagString: Player
@@ -5592,6 +5611,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1686108565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1686108564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbd42d81c8072c4589adb4e6189f0de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!58 &1686108566
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6959,7 +6989,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

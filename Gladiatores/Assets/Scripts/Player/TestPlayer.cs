@@ -25,6 +25,7 @@ public class TestPlayer : Character
 
     protected override void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
     {
+#if false
         if (!Input.GetKeyDown(KeyCode.E))
             return;
 
@@ -39,6 +40,7 @@ public class TestPlayer : Character
             //  武器のPick
             base.ChoiceWeapon(argWeaponType, argGameObject);
         }
+#endif
     }
 
 

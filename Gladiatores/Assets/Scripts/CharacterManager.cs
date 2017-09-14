@@ -9,7 +9,7 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     Player []playerList_ = new Player[EntryPlayerMax];
 
     BaseEnemy enemy_;
-    Vector2 entryPos = new Vector2(10, 0);
+    Vector2 entryPos = new Vector2(9, 0);
     const float ReEntryTime_ = 1.0f;
     float currentEntryTime_ = 0.0f;
 
@@ -45,19 +45,17 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
             }
             playerList_[lPlayerIndex] = players[lPlayerIndex].GetComponent<Player>();
         }
+        playerList_[0].SetPadNumber = GamePad.Index.One;
+
+        if (playerList_[1])
+        {
+            playerList_[1].SetPadNumber = GamePad.Index.Two;
+        }
         enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
     }
 	
 	void Update ()
     {
-        
-        playerList_[0].Actions(GamePad.Index.One);
-
-        if (playerList_[1])
-        {
-            playerList_[1].Actions(GamePad.Index.Two);
-        }
-
         if (!enemy_.gameObject.activeSelf)
         {
             if(currentEntryTime_ <= 0.0f)

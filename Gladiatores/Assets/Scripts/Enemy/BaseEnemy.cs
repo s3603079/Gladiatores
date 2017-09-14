@@ -12,7 +12,7 @@ public class BaseEnemy : Character
     {
         base.Start();
         power_ = 1f;
-        spd_ = new Vector2(spd_ .x * 0.01f, spd_.y);    //  !<  速度の補正
+        spd_ = new Vector2(spd_.x * 0.01f, spd_.y);    //  !<  速度の補正
         ai_ = GetComponent<EnemyAI>();
         logRegistKey_[(int)LogNum.Attack] = "Enemy Attaking : ";
         logRegistKey_[(int)LogNum.TakeDamage] = "Player Attack for Enemy!! ";
@@ -20,19 +20,13 @@ public class BaseEnemy : Character
 
     void Update()
     {
-        if(!isLiving_)
+        if (!isLiving_)
         {
             gameObject.SetActive(false);
         }
 
         ai_.Execute(this);
         base.Update();
-    }
-
-    public void Animation()
-    {
-        animationTime_ += Time.deltaTime * 6.2f;
-        equipmentWeapon_.Attack(Mathf.Sin(animationTime_));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -66,7 +60,7 @@ public class BaseEnemy : Character
         Weapon weapon = WeaponManager.Instance.SearchNearestWeapon(transform.position);
         if (weapon)
         {
-            if (weapon.StrengthWeaponType != playerWeaponType || 
+            if (weapon.StrengthWeaponType != playerWeaponType ||
                 weapon.ThisWeaponType == equipmentWeapon_.ThisWeaponType)
             {
                 res = false;
@@ -76,6 +70,51 @@ public class BaseEnemy : Character
     }
 #endregion Move
 #region Attack
+
+    public void Animation()
+    {
+        switch (equipmentWeapon_.ThisWeaponType)
+        {
+            case WeaponType.Punch:
+                animationTime_ += Time.deltaTime * 1.0f;
+                equipmentWeapon_.Attack(Mathf.Sin(animationTime_ * Mathf.PI * 2));
+                AnimationShoulder();
+                break;
+            case WeaponType.Sword:
+                animationTime_ += Time.deltaTime * 6.2f;
+                equipmentWeapon_.Attack(Mathf.Sin(animationTime_));
+                break;
+            case WeaponType.Shield:
+                AnimationShoulder();
+                break;
+            case WeaponType.Bow:
+                AnimationShoulder();
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+    float Aim(Vector2 p1, Vector2 p2)
+    {
+        float dx = p2.x - p1.x;
+        float dy = p2.y - p1.y;
+        float rad = Mathf.Atan2(dy, dx);
+        return rad * Mathf.Rad2Deg;
+    }
+
+    void AnimationShoulder()
+    {
+#if false
+        var vec = (CharacterManager.Instance.transform.position - shoulder_.transform.position).normalized;
+        var angle = (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) - 170.0f;
+        shoulder_.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+#endif
+        shoulder_.transform.localEulerAngles = new Vector3(0.0f, 0.0f, Aim(transform.position, CharacterManager.Instance.PlayerList[0].gameObject.transform.position) * 0.5f);
+
+    }
 
     protected override void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
     {
