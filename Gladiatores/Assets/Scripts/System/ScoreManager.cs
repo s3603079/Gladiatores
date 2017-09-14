@@ -29,12 +29,13 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     //経過時間
     private Timer timer = new Timer();
 
-    //キルカウント
     [SerializeField]
-    KillCount PlayerKillCount;
+    [Tooltip("1P用のKillCount")]
+    private KillCount playerKillCount;
 
-    private float timeBonus;
-    private int killBonus;
+    [SerializeField]
+    [Tooltip("2P用のKillCount")]
+    private KillCount scondKillCount;
 
     //スコア(８桁)
     int score = 0;
@@ -42,24 +43,25 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     //動きをつけた表示用
     private int displayScore;
 
-    //スコアのテキスト
+    //(シングル専用)スコアのテキスト
     [SerializeField]
-    [Tooltip("Use Only Result")]
-    private Text _scoreText;
+    [Tooltip("Use Only Single Result")]
+    private Text scoreText;
 
-    /*マルチプレイ時のスコア*/
-    //シングルプレイかどうかを決める
-    bool isMulti;
+    //(マルチ専用)1P用killCount
+    [SerializeField]
+    [Tooltip("Use Only Multi Result")]
+    private Text playerKillNum;
+
+    //(マルチ専用)2P用killCount
+    [SerializeField]
+    [Tooltip("Use Only Multi Result")]
+    private Text secondKillNum;
 
     //スコアの取得
     public int Score
     {
         get { return score; }
-    }
-    public float ElapsedTime
-    {
-        set { timeBonus = value; }
-        get { return timeBonus; }
     }
 
     protected override void Awake()
@@ -70,9 +72,9 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     // Use this for initialization
     void Start()
     {
-        PlayerKillCount = CharacterManager.Instance.PlayerList[0].gameObject.GetComponent<KillCount>();
-
+        playerKillCount = CharacterManager.Instance.PlayerList[0].gameObject.GetComponent<KillCount>();
         displayScore = score;
+
     }
 
     // Update is called once per frame
@@ -87,19 +89,11 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     public void SingleScore()
     {
         //キルカウントの加算
-        PlayerKillCount.KillCounts++;
+        playerKillCount.KillCounts++;
 
         //スコアの加算
         /*長時間生き残ると、スコアが高い*/
-        score = (int)timer.GetTime() * 10 + PlayerKillCount.KillCounts * 100;
-    }
-
-    public void MultiScore()
-    {
-        //クリア目標タイムの設定をする
-        //スコアの加算
-        /*長時間生き残ると、スコアが高い*/
-        score = (int)(PlayerKillCount.KillCounts * 60.0f - timer.GetTime()) * 20 + PlayerKillCount.KillCounts * 100;
+        score = (int)timer.GetTime() * 10 + playerKillCount.KillCounts * 100;
     }
 
     public void DrawScore()
@@ -107,9 +101,18 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         //スコアの表示
         if (displayScore != score)
         {
-            displayScore = (int)Mathf.Lerp(displayScore, score, 0.1f);
+            displayScore = (int)Mathf.Lerp(displayScore, score, 0.01f);
         }
 
-        _scoreText.text = string.Format("{0:00000000}", displayScore);
+        scoreText.text = string.Format("{0:00000000}", displayScore);
+    }
+
+    public void DrawMultiResult()
+    {
+        //1PのkillCount表示
+        playerKillNum.text = playerKillCount.KillCounts.ToString();
+
+        //2PのkillCount表示
+        secondKillNum.text = scondKillCount.KillCounts.ToString();
     }
 }
