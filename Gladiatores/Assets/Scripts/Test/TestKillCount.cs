@@ -25,14 +25,14 @@ public class TestKillCount : MonoBehaviour
     void Start()
     {
         slider.maxValue = maxKillCount_;
-        slider.value = (isInverted) ? 100 : slider.value = 0;
+        slider.value = (isInverted) ? maxKillCount_ : slider.value = 0;
     }
 
     void Update()
     {
         killCount_ = Mathf.Clamp(killCount_, 0, maxKillCount_);
         //指定した番号ごとにゲージをリセット
-        slider.value = (isInverted) ? 100 - killCount_ : killCount_;
+        slider.value = (isInverted) ? maxKillCount_ - killCount_ : killCount_;
      
         //アイコン上に討伐数を表示
         killText.text = killCount_.ToString();
