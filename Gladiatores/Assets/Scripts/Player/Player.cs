@@ -81,6 +81,10 @@ public class Player : Character
 
     void Attack(float argInputValue)
     {
+        if (argInputValue <= 0.0f)
+            return;
+
+        base.Attack();
         equipmentWeapon_.Attack(argInputValue);
     }
 
