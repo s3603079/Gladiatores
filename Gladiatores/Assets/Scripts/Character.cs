@@ -228,9 +228,11 @@ public class Character : MonoBehaviour
         }
 
         //  TODO    :   add knock back
-        if (isHitting_)
+        if (isHitting_ ||
+            (argCollision.tag != "Arrow" && !argCollision.gameObject.transform.parent.parent.parent.parent.gameObject.GetComponent<Character>().IsAttacking))
             return;
         
+
         isHitting_ = true;
         life_ -= argDamage;
 

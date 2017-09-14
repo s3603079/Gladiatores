@@ -29,7 +29,7 @@ public class KillCount : MonoBehaviour {
     void Start()
     {
         slider.maxValue = maxKillCount;
-        slider.value = (isInverted) ? 100 : slider.value = 0;
+        slider.value = (isInverted) ? maxKillCount : slider.value = 0;
     }
 
     // Update is called once per frame
