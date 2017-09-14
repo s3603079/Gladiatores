@@ -16,7 +16,7 @@ public class Bow : Weapon {
     
     void Start()
     {
-        attackedReach_ = 1.0f;
+        //attackedReach_ = 1.0f;
         weakToType_ = WeaponType.Shield;
         strengthToType_ = WeaponType.Sword;
         thisType_ = WeaponType.Bow;

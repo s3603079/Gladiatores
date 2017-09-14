@@ -27,7 +27,7 @@ public class Shield : Weapon {
             Rigidbody2D rigit2d = collision.gameObject.GetComponent<Rigidbody2D>();
             if (rigit2d)
             {
-                rigit2d.AddForce(-rigit2d.velocity * 1000f);
+                rigit2d.AddForce(-rigit2d.velocity * 100f);
             }
         }
     }

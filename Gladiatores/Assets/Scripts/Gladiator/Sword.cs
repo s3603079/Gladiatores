@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sword : Weapon
 {
     protected override void Start() {
-        attackedReach_ = 1.0f;
+        //attackedReach_ = 1.0f;
         weakToType_ = WeaponType.Bow;
         strengthToType_ = WeaponType.Punch;
         thisType_ = WeaponType.Sword;
