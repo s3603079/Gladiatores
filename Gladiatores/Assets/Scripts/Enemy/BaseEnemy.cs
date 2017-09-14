@@ -73,12 +73,19 @@ public class BaseEnemy : Character
 
     public void Animation()
     {
+        animationTime_ += Time.deltaTime * 1.0f;
+        float arg = Mathf.Clamp(Mathf.Sin(animationTime_ * Mathf.PI * 2), 0.0f, 1.0f);
+        equipmentWeapon_.Attack(arg);
+        RotaAnim();
+
+#if false
         switch (equipmentWeapon_.ThisWeaponType)
         {
             case WeaponType.Punch:
                 animationTime_ += Time.deltaTime * 1.0f;
-                equipmentWeapon_.Attack(Mathf.Sin(animationTime_ * Mathf.PI * 2));
-                AnimationShoulder();
+                float arg = Mathf.Clamp(Mathf.Sin(animationTime_ * Mathf.PI * 2), 0.0f, 1.0f);
+                equipmentWeapon_.Attack(arg);
+                RotaAnim();
                 break;
             case WeaponType.Sword:
                 animationTime_ += Time.deltaTime * 6.2f;
@@ -95,7 +102,33 @@ public class BaseEnemy : Character
                 break;
 
         }
+#endif
     }
+
+    void RotaAnim()
+    {
+        // 方向角度
+        Vector3 dir = CharacterManager.Instance.PlayerList[0].gameObject.transform.position - transform.position;
+        // Y軸角度
+        float yAngle = Mathf.Atan2(dir.x, dir.z);
+        //180度以上差があれば+-360度して逆回し
+        if (yAngle - transform.localEulerAngles.y > 180.0f)
+        {
+            yAngle -= 360.0f;
+        }
+        else if (transform.localEulerAngles.y - yAngle > 180.0f)
+        {
+            yAngle += 360.0f;
+        }
+        // X軸角度
+        float zxLen = Mathf.Sqrt(dir.x * dir.x + dir.z * dir.z);
+        float xAngle = Mathf.Atan2(dir.y, zxLen);
+
+        //  軸と座標は違うので注意
+        RotaShoulder(new Vector2(yAngle, xAngle));
+
+    }
+
 
     float Aim(Vector2 p1, Vector2 p2)
     {

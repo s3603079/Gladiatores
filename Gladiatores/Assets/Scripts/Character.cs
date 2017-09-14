@@ -12,7 +12,7 @@ enum LogNum
 public class Character : MonoBehaviour
 {
     [SerializeField]
-    protected Vector2 spd_ = new Vector2(5.0f, 2.0f);   //  !<  移動速度
+    protected Vector2 spd_ = new Vector2(5.0f, 2.5f);   //  !<  移動速度
     [SerializeField]
     protected int life_;                                //  !<  耐久値
     [SerializeField]
