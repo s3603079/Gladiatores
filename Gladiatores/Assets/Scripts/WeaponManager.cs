@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
 {
@@ -93,14 +94,43 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
                 continue;
             weaponTypeGruop_[lType] = weaponGruop[lType].GetComponent<Weapon>();
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene argScene, LoadSceneMode argSceneMode)
+    {
+        if(argScene.name != "arenaMulti" &&
+           argScene.name != "arenaSingle")
+        {
+            foreach(var activeWeapon in activeWeapons_)
+            {
+                RemoveActiveWeapon(activeWeapon.gameObject);
+            }
+        }
     }
 
     void Update()
     {
-        currentPopTime_ += Time.deltaTime;
-        if (weaponPopTime_ < currentPopTime_)
+        if (SceneManager.GetActiveScene().name == "arenaMulti" ||
+            SceneManager.GetActiveScene().name == "arenaSingle")
         {
-            ResetWeaponPopTimeAndWeaponPop();
+            currentPopTime_ += Time.deltaTime;
+            if (CharacterManager.Instance.IsEntryEnemy)
+            {
+                if (weaponPopTime_ < currentPopTime_)
+                {
+                    ResetWeaponPopTimeAndWeaponPop();
+                }
+            }
+            else
+            {
+                const float WeaponPopTime = 10f;
+                if (WeaponPopTime < currentPopTime_)
+                {
+                    ResetWeaponPopTimeAndWeaponPop();
+                }
+            }
         }
 #if false
         if (Input.GetKeyDown(KeyCode.W))
