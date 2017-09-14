@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 enum LogNum
 {
@@ -219,7 +218,8 @@ public class Character : MonoBehaviour
         if (!argWeapon)
             return;
 
-        if (argWeapon && !argCollision.gameObject.transform.parent)
+        if (argWeapon && !argCollision.gameObject.transform.parent &&
+            argCollision.tag != "Arrow")
         {// 落ちている武器に触れていれば武器の交換が可能
             ChoiceWeapon(argWeapon.ThisWeaponType, argCollision.gameObject);
             
@@ -228,9 +228,9 @@ public class Character : MonoBehaviour
         }
 
         //  TODO    :   add knock back
-        if (isHitting_ || argCollision.transform.parent.parent == shoulder_.transform)
+        if (isHitting_)
             return;
-
+        
         isHitting_ = true;
         life_ -= argDamage;
 

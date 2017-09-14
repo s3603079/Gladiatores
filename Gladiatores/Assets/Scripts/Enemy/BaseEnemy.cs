@@ -129,26 +129,6 @@ public class BaseEnemy : Character
 
     }
 
-
-    float Aim(Vector2 p1, Vector2 p2)
-    {
-        float dx = p2.x - p1.x;
-        float dy = p2.y - p1.y;
-        float rad = Mathf.Atan2(dy, dx);
-        return rad * Mathf.Rad2Deg;
-    }
-
-    void AnimationShoulder()
-    {
-#if false
-        var vec = (CharacterManager.Instance.transform.position - shoulder_.transform.position).normalized;
-        var angle = (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) - 170.0f;
-        shoulder_.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
-#endif
-        shoulder_.transform.localEulerAngles = new Vector3(0.0f, 0.0f, Aim(transform.position, CharacterManager.Instance.PlayerList[0].gameObject.transform.position) * 0.5f);
-
-    }
-
     protected override void ChoiceWeapon(WeaponType argWeaponType = WeaponType.Max, GameObject argGameObject = null)
     {
         Player player = CharacterManager.Instance.PlayerList[0];
