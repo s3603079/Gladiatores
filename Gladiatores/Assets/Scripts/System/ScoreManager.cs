@@ -72,9 +72,13 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     // Use this for initialization
     void Start()
     {
-        playerKillCount = CharacterManager.Instance.PlayerList[0].gameObject.GetComponent<KillCount>();
-        displayScore = score;
+        var sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
+        if (string.Equals(sceneName, "arenaSingle") || string.Equals(sceneName, "arenaMulti"))
+        {
+            playerKillCount = CharacterManager.Instance.PlayerList[0].gameObject.GetComponent<KillCount>();
+            displayScore = score;
+        }
     }
 
     // Update is called once per frame
