@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceec9833328279f4ea919ceb733a7bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxKillCount: 100
+  maxKillCount: 5
   slider: {fileID: 548938348}
   killText: {fileID: 465363065}
   isInverted: 0
@@ -530,7 +530,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &398700354
 Prefab:
@@ -755,7 +755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451593452
 GameObject:
@@ -1643,7 +1643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceec9833328279f4ea919ceb733a7bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxKillCount: 100
+  maxKillCount: 5
   slider: {fileID: 1580653807}
   killText: {fileID: 1479675201}
   isInverted: 1
@@ -1658,7 +1658,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &919804664
 GameObject:
@@ -1892,7 +1892,7 @@ RectTransform:
   - {fileID: 1053686439}
   - {fileID: 618581936}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2370,8 +2370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a0baa9b4c3de745b516dad5baacc34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerKillCount: {fileID: 388573673}
-  _scoreText: {fileID: 0}
+  playerKillCount: {fileID: 0}
+  scondKillCount: {fileID: 0}
+  scoreText: {fileID: 0}
+  playerKillNum: {fileID: 0}
+  secondKillNum: {fileID: 0}
 --- !u!4 &1411919697
 Transform:
   m_ObjectHideFlags: 0
