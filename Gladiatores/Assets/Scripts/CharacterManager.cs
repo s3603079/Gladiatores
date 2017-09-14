@@ -45,29 +45,39 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
             }
             playerList_[lPlayerIndex] = players[lPlayerIndex].GetComponent<Player>();
         }
-        playerList_[0].SetPadNumber = GamePad.Index.One;
-
-        if (playerList_[1])
+        if (playerList_[0])
         {
-            playerList_[1].SetPadNumber = GamePad.Index.Two;
+            playerList_[0].SetPadNumber = GameManager.Instance.oneIndex; ;
         }
-        enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
+
+        var sceneName = SceneManager.GetActiveScene().name;
+        if (string.Equals(sceneName, "arenaMulti"))
+        {
+            playerList_[1].SetPadNumber = GameManager.Instance.twoIndex;
+        }
+        if (string.Equals(sceneName, "arenaSingle"))
+        {
+            enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
+        }
     }
 	
 	void Update ()
     {
-        if (!enemy_.gameObject.activeSelf)
+        if (string.Equals(SceneManager.GetActiveScene().name, "arenaSingle"))
         {
-            if(currentEntryTime_ <= 0.0f)
-            {// 敵が死んだ瞬間のみスコア計算
-                TestScoreManager.Instance.AddScore();
-            }
-
-            currentEntryTime_ += Time.deltaTime;
-            if(currentEntryTime_ > ReEntryTime_)
+            if (!enemy_.gameObject.activeSelf)
             {
-                currentEntryTime_ = 0;
-                EntryEnemy();
+                if (currentEntryTime_ <= 0.0f)
+                {// 敵が死んだ瞬間のみスコア計算
+                    TestScoreManager.Instance.AddScore();
+                }
+
+                currentEntryTime_ += Time.deltaTime;
+                if (currentEntryTime_ > ReEntryTime_)
+                {
+                    currentEntryTime_ = 0;
+                    EntryEnemy();
+                }
             }
         }
     }

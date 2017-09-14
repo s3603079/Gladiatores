@@ -11,13 +11,17 @@ public class Player : Character
         set { pad_.PadNumber = value; }
     }
 
+    private void Awake()
+    {
+        pad_ = GetComponent<PlayerInputPad>();
+    }
+
     void Start()
     {
         power_ = 10;
         base.Start();
         logRegistKey_[(int)LogNum.Attack] = "Player Attaking : ";
         logRegistKey_[(int)LogNum.TakeDamage] = "Enemy Attack for Player!! ";
-        pad_ = GetComponent<PlayerInputPad>();
     }
 
     void Update()
