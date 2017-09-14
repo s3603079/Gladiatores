@@ -9,9 +9,14 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
 
     Weapon[] weaponTypeGruop_ = new Weapon[(int)WeaponType.Max];
 
-    public List<Weapon>  ActiveWeapons
+    float weaponPopTime_ = Mathf.Infinity;
+    float currentPopTime_ = 0.0f;
+
+    public void ResetWeaponPopTimeAndWeaponPop()
     {
-        get { return activeWeapons_; }
+        currentPopTime_ = 0;
+        weaponPopTime_ = Random.Range(5, 10);
+        PopupWeapon();
     }
 
     public void RemoveActiveWeapon(GameObject argDestroyWeapon)
@@ -92,6 +97,12 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
 
     void Update()
     {
+        currentPopTime_ += Time.deltaTime;
+        if (weaponPopTime_ < currentPopTime_)
+        {
+            ResetWeaponPopTimeAndWeaponPop();
+        }
+#if false
         if (Input.GetKeyDown(KeyCode.W))
         {
             DebugPopupWeapon(WeaponType.Sword);
@@ -104,9 +115,21 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
         {
             DebugPopupWeapon(WeaponType.Bow);
         }
+#endif
     }
 
-    public void DebugPopupWeapon(WeaponType argWeaponType)
+    void PopupWeapon()
+    {
+        int weaponType = Random.Range((int)WeaponType.Sword, (int)WeaponType.Max);
+        GameObject weapon = weaponTypeGruop_[weaponType].gameObject;
+
+        float range = (Camera.main.orthographicSize - 1.5f) * 2.0f;
+        Vector3 pos = new Vector3(Random.Range(-range, range), range, 0);
+        Instantiate(weapon, pos, Quaternion.identity);
+    }
+
+
+    void DebugPopupWeapon(WeaponType argWeaponType)
     {
         GameObject weapon = weaponTypeGruop_[(int)argWeaponType].gameObject;
 

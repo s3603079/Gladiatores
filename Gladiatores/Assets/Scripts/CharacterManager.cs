@@ -15,6 +15,8 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     
     const string SingleScene = "arenaSingle";
 
+    bool isEnemyFirstKill_ = true;
+
     public bool IsEntryEnemy
     {
         get { return string.Equals(SceneManager.GetActiveScene().name, SingleScene); }
@@ -83,6 +85,12 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         {
             if (!enemy_.gameObject.activeSelf)
             {
+                if(isEnemyFirstKill_)
+                {
+                    WeaponManager.Instance.ResetWeaponPopTimeAndWeaponPop();
+                    isEnemyFirstKill_ = false;
+                }
+
                 if (currentEntryTime_ <= 0.0f)
                 {// 敵が死んだ瞬間のみスコア計算
                     ScoreManager.Instance.SingleScore();
