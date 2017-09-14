@@ -38,6 +38,8 @@ public class ConnectCheck : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        // 観客席の声援をBGMで再生
+        SoundManager.Instance.PlayBGM("audienceCheer");
     }
 
     // Update is called once per frame
@@ -54,7 +56,18 @@ public class ConnectCheck : MonoBehaviour {
         ////1P Player Login
         if (GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.One))
         {
+            // 待機状態の切り替え
             start1 = !start1;
+            if(start1)
+            {
+                OneState.sprite = textureAfter;
+                SoundManager.Instance.PlaySE("Ready");
+            }
+            else
+            {
+                OneState.sprite = textureBef;
+                SoundManager.Instance.PlaySE("NotReady");
+            }
             OneState.sprite = (start1) ? textureAfter : textureBef;
         }
         //if (GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.One))
@@ -67,8 +80,18 @@ public class ConnectCheck : MonoBehaviour {
         ////2P Player Login
         if (GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Two))
         {
+            // 待機状態の切り替え
             start2 = !start2;
-            TwoState.sprite = (start2) ? textureAfter : textureBef;
+            if (start2)
+            {
+                TwoState.sprite = textureAfter;
+                SoundManager.Instance.PlaySE("Ready");
+            }
+            else
+            {
+                TwoState.sprite = textureBef;
+                SoundManager.Instance.PlaySE("NotReady");
+            }
         }
         //if (GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Two))
         //{
@@ -106,6 +129,7 @@ public class ConnectCheck : MonoBehaviour {
             }
             else if (start1 || start2)
             {
+                SoundManager.Instance.PlaySE("metalClash");
                 UnityEngine.SceneManagement.SceneManager.LoadScene("arenaSingle");
                 if (start1)
                 {
