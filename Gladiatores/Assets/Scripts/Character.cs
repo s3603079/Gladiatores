@@ -19,7 +19,6 @@ public class Character : MonoBehaviour
 
     GameObject head_;
 
-
     protected Weapon equipmentWeapon_;                  //  !<  装備している武器
     protected Rigidbody2D rigid2d_;                     //  !<  剛体
     protected Vector2 pos_;                             //  !<  座標
@@ -171,7 +170,7 @@ public class Character : MonoBehaviour
 
     public void Attack()
     {
-        rigid2d_.velocity = new Vector2(0, 0);
+        rigid2d_.velocity = (rigid2d_.velocity.y > 0.0f) ? new Vector2(0, 0) : new Vector2(0, rigid2d_.velocity.y);
         isAttacking_ = true;
     }
 

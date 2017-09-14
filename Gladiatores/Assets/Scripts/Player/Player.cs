@@ -81,11 +81,14 @@ public class Player : Character
 
     void Attack(float argInputValue)
     {
-        if (argInputValue <= 0.0f)
-            return;
-
-        base.Attack();
-        equipmentWeapon_.Attack(argInputValue);
+        if (argInputValue > 0.0f && !isAttacking_)
+        {
+            base.Attack();
+        }
+        if (isAttacking_)
+        {
+            equipmentWeapon_.Attack(argInputValue);
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
