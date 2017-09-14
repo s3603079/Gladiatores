@@ -33,6 +33,9 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     [SerializeField]
     KillCount PlayerKillCount;
 
+    private float timeBonus;
+    private int killBonus;
+
     //スコア(８桁)
     int score = 0;
 
@@ -44,11 +47,21 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
     [Tooltip("Use Only Result")]
     private Text _scoreText;
 
+    /*マルチプレイ時のスコア*/
+    //シングルプレイかどうかを決める
+    bool isMulti;
+
     //スコアの取得
     public int Score
     {
         get { return score; }
     }
+    public float ElapsedTime
+    {
+        set { timeBonus = value; }
+        get { return timeBonus; }
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -71,7 +84,7 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         //}
     }
 
-    public void AddScore()
+    public void SingleScore()
     {
         //キルカウントの加算
         PlayerKillCount.KillCounts++;
@@ -79,6 +92,14 @@ public class ScoreManager : SingletonMonoBehaviour<ScoreManager>
         //スコアの加算
         /*長時間生き残ると、スコアが高い*/
         score = (int)timer.GetTime() * 10 + PlayerKillCount.KillCounts * 100;
+    }
+
+    public void MultiScore()
+    {
+        //クリア目標タイムの設定をする
+        //スコアの加算
+        /*長時間生き残ると、スコアが高い*/
+        score = (int)(PlayerKillCount.KillCounts * 60.0f - timer.GetTime()) * 20 + PlayerKillCount.KillCounts * 100;
     }
 
     public void DrawScore()
