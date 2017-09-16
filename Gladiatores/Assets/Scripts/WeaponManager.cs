@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
+public class WeaponManager : MonoBehaviour
 {
+    static WeaponManager instance_;
     List<Weapon> activeWeapons_ = new List<Weapon>();   //  !<  フィールドに落ちている武器 
     const string PrefabsPath = "Prefabs/Weapons/";    //  !<  武器のプレハブのパス
 
@@ -11,6 +13,11 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
 
     float weaponPopTime_ = Mathf.Infinity;
     float currentPopTime_ = 0.0f;
+
+    public static WeaponManager Instance
+    {
+        get { return instance_; }
+    }
 
     public void ResetWeaponPopTimeAndWeaponPop()
     {
@@ -74,9 +81,9 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
         return weapon;
     }
 
-    override protected void Awake()
+    void Awake()
     {
-        base.Awake();
+        instance_ = this;
     }
 
     void Start()
@@ -97,10 +104,25 @@ public class WeaponManager : SingletonMonoBehaviour<WeaponManager>
 
     void Update()
     {
-        currentPopTime_ += Time.deltaTime;
-        if (weaponPopTime_ < currentPopTime_)
+        if (SceneManager.GetActiveScene().name == "arenaMulti" ||
+            SceneManager.GetActiveScene().name == "arenaSingle")
         {
-            ResetWeaponPopTimeAndWeaponPop();
+            currentPopTime_ += Time.deltaTime;
+            if (CharacterManager.Instance.IsEntryEnemy)
+            {
+                if (weaponPopTime_ < currentPopTime_)
+                {
+                    ResetWeaponPopTimeAndWeaponPop();
+                }
+            }
+            else
+            {
+                const float WeaponPopTime = 10f;
+                if (WeaponPopTime < currentPopTime_)
+                {
+                    ResetWeaponPopTimeAndWeaponPop();
+                }
+            }
         }
 #if false
         if (Input.GetKeyDown(KeyCode.W))

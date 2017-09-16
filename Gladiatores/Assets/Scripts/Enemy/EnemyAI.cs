@@ -11,6 +11,9 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         activePlayer_ = CharacterManager.Instance.PlayerList[0];
+
+        Debug.Assert(activePlayer_);
+
         targetPos_ = activePlayer_.gameObject.transform;
         targetDir_ = Mathf.Atan2(targetPos_.position.y - transform.position.y, targetPos_.position.x - transform.position.x);
     }
@@ -57,6 +60,8 @@ public class EnemyAI : MonoBehaviour
 
     void MoveToAttack(BaseEnemy argBaseEnemy)
     {
+        Debug.Assert(argBaseEnemy);
+
         //  移動方向の取得
         targetDir_ = Mathf.Atan2(
             targetPos_.position.y - transform.position.y,

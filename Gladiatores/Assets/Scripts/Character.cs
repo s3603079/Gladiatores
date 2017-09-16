@@ -17,13 +17,15 @@ public class Character : MonoBehaviour
     [SerializeField]
     float InvisibleTime  = 1f;                          //  !<  最大無敵時間
 
+    [SerializeField]
+    protected float power_ = 1f;                        //  !<  攻撃力
+
     GameObject head_;
 
     protected Weapon equipmentWeapon_;                  //  !<  装備している武器
     protected Rigidbody2D rigid2d_;                     //  !<  剛体
     protected Vector2 pos_;                             //  !<  座標
     protected Vector2 direction_;                       //  !<  画像の向き
-    protected float power_;                             //  !<  攻撃力
     protected bool isLiving_ = true;                    //  !<  生死判定フラグ
     protected bool isAttacking_ = false;                //  !<  攻撃中フラグ
     protected bool isHitting_ = false;                  //  !<  被ダメージフラグ
@@ -40,8 +42,8 @@ public class Character : MonoBehaviour
 
     SpriteRenderer []spriteRenderers_ = new SpriteRenderer[3];
 
-    const string PrefabsPath = "Prefabs/"
-;
+    const string PrefabsPath = "Prefabs/";
+
     public Vector2 Spd
     {
         get { return spd_; }
@@ -73,10 +75,6 @@ public class Character : MonoBehaviour
     {
         get { return life_; }
         set { life_ = value; }
-    }
-    public Rigidbody2D RigitBody2D
-    {
-        get { return rigid2d_; }
     }
     public Vector2 Direction
     {
@@ -156,7 +154,7 @@ public class Character : MonoBehaviour
     {
         isLiving_ = true;
         gameObject.SetActive(true);
-        life_ = argLife;
+        life_ = argLife * 2;
         ChangeWeapon(argWeaponTypeIndex);
         transform.position = argEntryPos;
         transform.localEulerAngles = new Vector3(0, 0, 0);
@@ -231,6 +229,7 @@ public class Character : MonoBehaviour
 
         isHitting_ = true;
         life_ -= argDamage;
+        DamageEffect.Anim(this);
 
         if (life_ <= 0)
         {// 死亡処理

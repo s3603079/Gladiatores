@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using GamepadInput;
 
-public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
+public class CharacterManager : MonoBehaviour
 {
+    static CharacterManager instance_;
+    
     const int EntryPlayerMax = 2;
     Player []playerList_ = new Player[EntryPlayerMax];
 
@@ -16,6 +18,11 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     const string SingleScene = "arenaSingle";
 
     bool isEnemyFirstKill_ = true;
+
+    public static CharacterManager Instance
+    {
+        get { return instance_; }
+    }
 
     public bool IsEntryEnemy
     {
@@ -47,13 +54,14 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         get { return playerList_; }
     }
 
-    override protected void Awake()
+    void Awake()
     {
-        base.Awake();
+        instance_ = this;
     }
 
     void Start()
     {
+
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int lPlayerIndex = 0; lPlayerIndex < EntryPlayerMax; lPlayerIndex++)
@@ -72,14 +80,16 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
         if (IsEntryEnemy)
         {
             enemy_ = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemy>();
+            Debug.Assert(enemy_);
         }
         else
         {
             playerList_[1].SetPadNumber = GameManager.Instance.twoIndex;
         }
+
     }
-	
-	void Update ()
+
+    void Update ()
     {
         if (IsEntryEnemy)
         {
@@ -109,8 +119,6 @@ public class CharacterManager : SingletonMonoBehaviour<CharacterManager>
     void EntryEnemy()
     {
         Vector2 pos = (playerList_[0].gameObject.transform.position.x < 0) ? entryPos : -entryPos;
-        //  HACK    :   プレイヤーの弱点タイプ
-        //playerList_[0].EquipmentWeapon.WeakWeaponType
-        enemy_.Initialize((int)WeaponType.Sword, 1, pos);
+        enemy_.Initialize((int)playerList_[0].EquipmentWeapon.WeakWeaponType, 20, pos);
     }
 }

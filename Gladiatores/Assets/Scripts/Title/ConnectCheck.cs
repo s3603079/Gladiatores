@@ -120,7 +120,7 @@ public class ConnectCheck : MonoBehaviour {
         // ボタンが押されることでゲームを開始（フラグに応じて分岐）
         if ((GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.A, GamepadInput.GamePad.Index.One)
          || (GamepadInput.GamePad.GetButtonDown(GamepadInput.GamePad.Button.A, GamepadInput.GamePad.Index.Two))))
-            {
+        {
             if (start1 && start2)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("arenaMulti");
@@ -135,9 +135,9 @@ public class ConnectCheck : MonoBehaviour {
                 {
                     GameManager.Instance.oneIndex = GamepadInput.GamePad.Index.One;
                 }
-                if(start2)
+                if (start2)
                 {
-                GameManager.Instance.oneIndex = GamepadInput.GamePad.Index.Two;
+                    GameManager.Instance.oneIndex = GamepadInput.GamePad.Index.Two;
                 }
             }
         }
