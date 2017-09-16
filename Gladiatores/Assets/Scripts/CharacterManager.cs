@@ -6,10 +6,7 @@ using GamepadInput;
 public class CharacterManager : MonoBehaviour
 {
     static CharacterManager instance_;
-
-    [SerializeField]
-    int entryEnemyLife_ = 100;
-
+    
     const int EntryPlayerMax = 2;
     Player []playerList_ = new Player[EntryPlayerMax];
 
@@ -122,6 +119,6 @@ public class CharacterManager : MonoBehaviour
     void EntryEnemy()
     {
         Vector2 pos = (playerList_[0].gameObject.transform.position.x < 0) ? entryPos : -entryPos;
-        enemy_.Initialize((int)playerList_[0].EquipmentWeapon.WeakWeaponType, entryEnemyLife_, pos);
+        enemy_.Initialize((int)playerList_[0].EquipmentWeapon.WeakWeaponType, 20, pos);
     }
 }

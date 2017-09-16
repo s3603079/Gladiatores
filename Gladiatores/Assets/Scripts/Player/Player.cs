@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using GamepadInput;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
     bool canPick_ = false;                    //  !<  アイテムを拾えるかどうかのフラグ
     PlayerInputPad pad_;
+    Vector2 entryPos = new Vector2(8, 0);
 
     public GamePad.Index SetPadNumber
     {
@@ -14,6 +16,15 @@ public class Player : Character
     private void Awake()
     {
         pad_ = GetComponent<PlayerInputPad>();
+    }
+
+    void Initialize(Vector2 argEntryPos)
+    {
+        Life = 100;
+        isLiving_ = true;
+        gameObject.SetActive(true);
+        transform.position = argEntryPos;
+        transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     void Start()
@@ -31,10 +42,16 @@ public class Player : Character
             if(CharacterManager.Instance.IsEntryEnemy)
             {
                 // TODO    :   死亡処理
+                if (Invisible.SpriteOn())
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+                }
             }
             else
             {
                 ScoreManager.Instance.AddOtherPlayerScore(this);
+                Vector2 pos = (CharacterManager.Instance.OtherPlayer(this).gameObject.transform.position.x < 0) ? entryPos : -entryPos;
+                Initialize(pos);
             }
         }
         
@@ -65,6 +82,8 @@ public class Player : Character
         Jump(pad_.GetButtonDown(GamePad.Button.A));
         RotaShoulder(pad_.GetAxis(GamePad.Axis.RightStick));
         Attack(pad_.GetTrigger(GamePad.Trigger.RightTrigger));
+
+
         if (!canPick_)
             ChoiceWeapon();
         canPick_ = false;

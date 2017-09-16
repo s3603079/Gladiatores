@@ -62,8 +62,12 @@ public class Cursor : MonoBehaviour
             }
             else
             {
-                ScoreManager.Instance.Score = 0;    //  HACK    :   要らないかも
+                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex != 0)
+                {//  HACK    :   要らないかも
+                    ScoreManager.Instance.Score = 0;
+                }
                 UnityEngine.SceneManagement.SceneManager.LoadScene(scenes[selectNumber]);
+                
             }
         }
     }

@@ -154,7 +154,7 @@ public class Character : MonoBehaviour
     {
         isLiving_ = true;
         gameObject.SetActive(true);
-        life_ = argLife;
+        life_ = argLife * 2;
         ChangeWeapon(argWeaponTypeIndex);
         transform.position = argEntryPos;
         transform.localEulerAngles = new Vector3(0, 0, 0);
@@ -229,6 +229,7 @@ public class Character : MonoBehaviour
 
         isHitting_ = true;
         life_ -= argDamage;
+        DamageEffect.Anim(this);
 
         if (life_ <= 0)
         {// 死亡処理
